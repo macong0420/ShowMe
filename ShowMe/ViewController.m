@@ -20,7 +20,7 @@
 #define ZHNAVALL_H             (ZHSTATUS_H + ZHNAVBAR_H)
 #define WEAKSELF(classObject) __weak __typeof(classObject) weakSelfARC = classObject;
 
-@interface ViewController () <UITextFieldDelegate,MenuViewControllerDelegate>
+@interface ViewController () <UITextFieldDelegate,MenuViewControllerDelegate,UIScrollViewDelegate,YYTextViewDelegate>
 
 {
     UILabel *lab;
@@ -31,6 +31,7 @@
 @property (nonatomic, strong) UIButton *saveBtn;
 @property (nonatomic, strong) UIButton *moreBtn;
 @property (nonatomic, strong) UILabel *dateLabel;
+@property (nonatomic, strong) UIImageView *backgroundView;
 
 @end
 
@@ -63,13 +64,21 @@
     
 
     _inputView = [[YYTextView alloc] init];
-    _inputView.frame = CGRectMake(20, ZHNAVALL_H + 20, APPSIZE.width-40, APPSIZE.height-ZHNAVALL_H-160);
+    _inputView.frame = CGRectMake(0, ZHNAVALL_H, APPSIZE.width, APPSIZE.height-ZHNAVALL_H-160);
     _inputView.placeholderText = @"愿这个世界  温柔以待";
     _inputView.font = [UIFont systemFontOfSize:20];
     _inputView.backgroundColor = [UIColor whiteColor];
     _inputView.typingAttributes = attributes;
+    _inputView.delegate = self;
     _inputView.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:_inputView];
+    
+    _backgroundView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, APPSIZE.width, APPSIZE.height)];
+    _backgroundView.image = [UIImage imageNamed:@"back"];
+    _backgroundView.contentMode = UIViewContentModeScaleAspectFill;
+    [_inputView addSubview:_backgroundView];//设置背景图
+    [_inputView insertSubview:_backgroundView atIndex:0];
+    
     
     //moreBtn
     _moreBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -105,7 +114,6 @@
     }
     
     
-    
 }
 
 - (UIImage *)convertCreateImageWithUIView:(UIView *)view {
@@ -115,6 +123,8 @@
     CGSize size = CGSizeZero;
     
     size = CGSizeMake(_scrollView.contentSize.width, _scrollView.contentSize.height + 200);
+//    _backgroundView.frame = CGRectMake(0, 0, APPSIZE.width, _scrollView.contentSize.height + 200);
+//    _backgroundView.contentMode = UIViewContentModeScaleAspectFill;
     
 //    if (_scrollView.contentSize.height > [UIScreen mainScreen].bounds.size.height) {
 //        size = _scrollView.contentSize;
@@ -128,6 +138,7 @@
         CGRect savedFrame = _scrollView.frame;
         _scrollView.contentOffset = CGPointZero;
         _scrollView.frame = CGRectMake(0, 0, size.width, size.height + 80);
+        _backgroundView.frame = _scrollView.frame;
         [_scrollView.layer renderInContext: UIGraphicsGetCurrentContext()];
         image = UIGraphicsGetImageFromCurrentImageContext();
         _scrollView.contentOffset = savedContentOffset;
@@ -248,6 +259,11 @@
     UIImage *img = [self convertCreateImageWithUIView:self.inputView];
     ShowImageViewController *showVC = [[ShowImageViewController alloc] initWithImage:img];
     [self.navigationController pushViewController:showVC animated:YES];
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    NSLog(@"====");
+    _backgroundView.frame = CGRectMake(scrollView.contentOffset.x, scrollView.contentOffset.y, APPSIZE.width, APPSIZE.height);
 }
 
 
