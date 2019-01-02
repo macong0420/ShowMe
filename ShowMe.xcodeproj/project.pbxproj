@@ -25,6 +25,7 @@
 		E2730EC521DCAD9A00AD65A7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E2730EC421DCAD9900AD65A7 /* Assets.xcassets */; };
 		E2730EC721DCAFF200AD65A7 /* PangZhongHuaXingShu-2.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E2730EC621DCAFDB00AD65A7 /* PangZhongHuaXingShu-2.ttf */; };
 		E2730EC921DCB83200AD65A7 /* MiNiJianShouJinShu-1.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E2730EC821DCB81C00AD65A7 /* MiNiJianShouJinShu-1.ttf */; };
+		E2730ECC21DCC83D00AD65A7 /* UIBarButtonItem+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = E2730ECB21DCC83D00AD65A7 /* UIBarButtonItem+Common.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,6 +77,8 @@
 		E2730EC421DCAD9900AD65A7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E2730EC621DCAFDB00AD65A7 /* PangZhongHuaXingShu-2.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PangZhongHuaXingShu-2.ttf"; sourceTree = "<group>"; };
 		E2730EC821DCB81C00AD65A7 /* MiNiJianShouJinShu-1.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MiNiJianShouJinShu-1.ttf"; sourceTree = "<group>"; };
+		E2730ECA21DCC83D00AD65A7 /* UIBarButtonItem+Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+Common.h"; sourceTree = "<group>"; };
+		E2730ECB21DCC83D00AD65A7 /* UIBarButtonItem+Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+Common.m"; sourceTree = "<group>"; };
 		ED06337B3187E116FE32A519 /* libPods-ShowMeUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ShowMeUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F692DDD111E2AE653400C171 /* Pods-ShowMeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShowMeTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ShowMeTests/Pods-ShowMeTests.release.xcconfig"; sourceTree = "<group>"; };
 		FEDAE0F16A09C0E16E360185 /* Pods-ShowMe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShowMe.release.xcconfig"; path = "Pods/Target Support Files/Pods-ShowMe/Pods-ShowMe.release.xcconfig"; sourceTree = "<group>"; };
@@ -209,6 +212,8 @@
 			children = (
 				E2730EBF21DCAB9C00AD65A7 /* UIView+LLXAlertPop.h */,
 				E2730EC021DCAB9C00AD65A7 /* UIView+LLXAlertPop.m */,
+				E2730ECA21DCC83D00AD65A7 /* UIBarButtonItem+Common.h */,
+				E2730ECB21DCC83D00AD65A7 /* UIBarButtonItem+Common.m */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -480,6 +485,7 @@
 				E21DB86F21D5C48D0001BC3E /* ViewController.m in Sources */,
 				E21DB87A21D5C48E0001BC3E /* main.m in Sources */,
 				E21DB86C21D5C48D0001BC3E /* AppDelegate.m in Sources */,
+				E2730ECC21DCC83D00AD65A7 /* UIBarButtonItem+Common.m in Sources */,
 				E2730EC121DCAB9C00AD65A7 /* UIView+LLXAlertPop.m in Sources */,
 				E21DB8A321D5D0240001BC3E /* ShowImageViewController.m in Sources */,
 			);

@@ -5,4 +5,5 @@ target 'ShowMe' do
 pod 'YYKit'
 pod 'YCPopover'
 pod 'pop', '~> 1.0'
+pod 'LvPopupMenu'
 end

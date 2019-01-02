@@ -1,4 +1,5 @@
 PODS:
+  - LvPopupMenu (1.0.0)
   - pop (1.0.12)
   - YCPopover (1.2.0)
   - YYKit (1.0.9):
@@ -6,15 +7,17 @@ PODS:
   - YYKit/no-arc (1.0.9)
 
 DEPENDENCIES:
+  - LvPopupMenu
   - pop (~> 1.0)
   - YCPopover
   - YYKit
 
 SPEC CHECKSUMS:
+  LvPopupMenu: 9b98377a4ec36fe036706dad0d180da9365cec3a
   pop: d582054913807fd11fd50bfe6a539d91c7e1a55a
   YCPopover: a11e06b685e9cddaa10e8f1bb3c1ba5bb52d719e
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
 
-PODFILE CHECKSUM: 89d3ef364724c4985981f9a39244c6da96822fa2
+PODFILE CHECKSUM: 52ee4d115c4d2e3c56719e407df7b043e90b386b
 
 COCOAPODS: 1.4.0
