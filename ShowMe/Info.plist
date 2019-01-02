@@ -2,10 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>是否允许此app使用相册？</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>申请用于生成图片？</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
@@ -24,9 +20,14 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>是否允许此app使用相册？</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>申请用于生成图片？</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>MoMoSuiXiangTiXi-2.ttf</string>
+		<string>MiNiJianShouJinShu-1.ttf</string>
 		<string>PangZhongHuaXingShu-2.ttf</string>
 		<string>KeKeTongHuaTi-2.ttf</string>
 		<string>H-GungSeo2.2.ttf</string>
@@ -38,7 +39,9 @@
 		<string>armv7</string>
 	</array>
 	<key>UISupportedInterfaceOrientations</key>
-	<array/>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

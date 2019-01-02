@@ -17,6 +17,7 @@
 #define ZHSTATUS_H            ([[UIApplication sharedApplication] statusBarFrame].size.height)
 #define ZHNAVBAR_H             44
 #define ZHNAVALL_H             (ZHSTATUS_H + ZHNAVBAR_H)
+#define WEAKSELF(classObject) __weak __typeof(classObject) weakSelfARC = classObject;
 
 @interface ViewController () <UITextFieldDelegate>
 
@@ -48,6 +49,7 @@
      可可童话体             Undefined
      默默随想               suibixi-Regular
      庞中华行书             AMCSongGBK-Light
+     迷你简瘦金书           JSouJingSu
      */
     
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
@@ -122,11 +124,14 @@
     
     UIScrollView *_scrollView = (UIScrollView *)view;
     CGSize size = CGSizeZero;
-    if (_scrollView.contentSize.height > [UIScreen mainScreen].bounds.size.height) {
-        size = _scrollView.contentSize;
-    } else {
-        size = view.size;
-    }
+    
+    size = CGSizeMake(_scrollView.contentSize.width, _scrollView.contentSize.height + 200);
+    
+//    if (_scrollView.contentSize.height > [UIScreen mainScreen].bounds.size.height) {
+//        size = _scrollView.contentSize;
+//    } else {
+//        size = view.size;
+//    }
     
     UIGraphicsBeginImageContextWithOptions(size, NO, [UIScreen mainScreen].scale);
     {
@@ -149,31 +154,33 @@
 - (void)changeBtnAction:(UIButton *)sender {
 
     
-    NSArray *arrayTitle = @[@"系统字体",@"",@"",@"",@""];
+    NSArray *arrayTitle = @[@"系统字体",@"",@"",@"",@"",@""];
     
-    NSArray *arrayImage = @[@"",@"可可童话体",@"默默谁想体",@"h-gongshu",@"pangzhonghuaxingshu"];
+    NSArray *arrayImage = @[@"",@"可可童话体",@"默默谁想体",@"h-gongshu",@"pangzhonghuaxingshu",@"瘦金体"];
     /*
      H-宫书                H-GungSeo
      可可童话体             Undefined
      默默随想               suibixi-Regular
      */
+    WEAKSELF(self)
     
     [self.view createAlertViewTitleArray:arrayTitle arrayImage:arrayImage textColor:[UIColor blackColor] font:[UIFont systemFontOfSize:16] spacing:-15 actionBlock:^(UIButton * _Nullable button, NSInteger didRow) {
         //获取点击事件
-        NSLog(@"%@,%ld",button.currentTitle,(long)didRow);
-        lab.text = [NSString stringWithFormat:@"%@,下标%ld",button.currentTitle,(long)didRow];
         switch (didRow) {
             case 1:
-                _inputView.font = [UIFont fontWithName:@"Undefined" size:20];
+                weakSelfARC.inputView.font = [UIFont fontWithName:@"Undefined" size:20];
                 break;
             case 2:
-                _inputView.font = [UIFont fontWithName:@"suibixi-Regular" size:20];
+                weakSelfARC.inputView.font = [UIFont fontWithName:@"suibixi-Regular" size:20];
                 break;
             case 3:
-                _inputView.font = [UIFont fontWithName:@"H-GungSeo" size:20];
+                weakSelfARC.inputView.font = [UIFont fontWithName:@"H-GungSeo" size:20];
                 break;
             case 4:
-                _inputView.font = [UIFont fontWithName:@"AMCSongGBK-Light" size:20];
+                weakSelfARC.inputView.font = [UIFont fontWithName:@"AMCSongGBK-Light" size:20];
+                break;
+            case 5:
+                weakSelfARC.inputView.font = [UIFont fontWithName:@"JSouJingSu" size:20];
                 break;
                 
             default:
@@ -188,42 +195,42 @@
     NSArray *arrayTitle = @[@"20",@"22",@"24",@"26",@"28",@"30",@"32",@"34",@"36",@"38",@"40"];
     
     UIColor *color = [UIColor blueColor];
-    
+    WEAKSELF(self)
     [self.view createAlertViewTitleArray:arrayTitle textColor:color font:[UIFont systemFontOfSize:16] actionBlock:^(UIButton * _Nullable button, NSInteger didRow) {
         //获取点击事件
         switch (didRow) {
             case 1:
-                _inputView.font = [UIFont fontWithName:_inputView.font.fontName size:20];
+                weakSelfARC.inputView.font = [UIFont fontWithName:weakSelfARC.inputView.font.fontName size:20];
                 break;
             case 2:
-                _inputView.font = [UIFont fontWithName:_inputView.font.fontName size:22];
+                weakSelfARC.inputView.font = [UIFont fontWithName:weakSelfARC.inputView.font.fontName size:22];
                 break;
             case 3:
-                _inputView.font = [UIFont fontWithName:_inputView.font.fontName size:24];
+                weakSelfARC.inputView.font = [UIFont fontWithName:weakSelfARC.inputView.font.fontName size:24];
                 break;
             case 4:
-                _inputView.font = [UIFont fontWithName:_inputView.font.fontName size:26];
+                weakSelfARC.inputView.font = [UIFont fontWithName:weakSelfARC.inputView.font.fontName size:26];
                 break;
             case 5:
-                _inputView.font = [UIFont fontWithName:_inputView.font.fontName size:28];
+                weakSelfARC.inputView.font = [UIFont fontWithName:weakSelfARC.inputView.font.fontName size:28];
                 break;
             case 6:
-                _inputView.font = [UIFont fontWithName:_inputView.font.fontName size:30];
+                weakSelfARC.inputView.font = [UIFont fontWithName:weakSelfARC.inputView.font.fontName size:30];
                 break;
             case 7:
-                _inputView.font = [UIFont fontWithName:_inputView.font.fontName size:32];
+                weakSelfARC.inputView.font = [UIFont fontWithName:weakSelfARC.inputView.font.fontName size:32];
                 break;
             case 8:
-                _inputView.font = [UIFont fontWithName:_inputView.font.fontName size:34];
+                weakSelfARC.inputView.font = [UIFont fontWithName:weakSelfARC.inputView.font.fontName size:34];
                 break;
             case 9:
-                _inputView.font = [UIFont fontWithName:_inputView.font.fontName size:36];
+                weakSelfARC.inputView.font = [UIFont fontWithName:weakSelfARC.inputView.font.fontName size:36];
                 break;
             case 10:
-                _inputView.font = [UIFont fontWithName:_inputView.font.fontName size:38];
+                weakSelfARC.inputView.font = [UIFont fontWithName:weakSelfARC.inputView.font.fontName size:38];
                 break;
             case 11:
-                _inputView.font = [UIFont fontWithName:_inputView.font.fontName size:40];
+                weakSelfARC.inputView.font = [UIFont fontWithName:weakSelfARC.inputView.font.fontName size:40];
                 break;
                 
             default:

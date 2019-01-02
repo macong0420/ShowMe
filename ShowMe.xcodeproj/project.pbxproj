@@ -24,6 +24,7 @@
 		E2730EC121DCAB9C00AD65A7 /* UIView+LLXAlertPop.m in Sources */ = {isa = PBXBuildFile; fileRef = E2730EC021DCAB9C00AD65A7 /* UIView+LLXAlertPop.m */; };
 		E2730EC521DCAD9A00AD65A7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E2730EC421DCAD9900AD65A7 /* Assets.xcassets */; };
 		E2730EC721DCAFF200AD65A7 /* PangZhongHuaXingShu-2.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E2730EC621DCAFDB00AD65A7 /* PangZhongHuaXingShu-2.ttf */; };
+		E2730EC921DCB83200AD65A7 /* MiNiJianShouJinShu-1.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E2730EC821DCB81C00AD65A7 /* MiNiJianShouJinShu-1.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +75,7 @@
 		E2730EC021DCAB9C00AD65A7 /* UIView+LLXAlertPop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+LLXAlertPop.m"; sourceTree = "<group>"; };
 		E2730EC421DCAD9900AD65A7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E2730EC621DCAFDB00AD65A7 /* PangZhongHuaXingShu-2.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PangZhongHuaXingShu-2.ttf"; sourceTree = "<group>"; };
+		E2730EC821DCB81C00AD65A7 /* MiNiJianShouJinShu-1.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MiNiJianShouJinShu-1.ttf"; sourceTree = "<group>"; };
 		ED06337B3187E116FE32A519 /* libPods-ShowMeUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ShowMeUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F692DDD111E2AE653400C171 /* Pods-ShowMeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShowMeTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ShowMeTests/Pods-ShowMeTests.release.xcconfig"; sourceTree = "<group>"; };
 		FEDAE0F16A09C0E16E360185 /* Pods-ShowMe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShowMe.release.xcconfig"; path = "Pods/Target Support Files/Pods-ShowMe/Pods-ShowMe.release.xcconfig"; sourceTree = "<group>"; };
@@ -170,6 +172,7 @@
 				E21DB8AC21D623E00001BC3E /* MoMoSuiXiangTiXi-2.ttf */,
 				E21DB8AA21D61EB50001BC3E /* KeKeTongHuaTi-2.ttf */,
 				E2730EC621DCAFDB00AD65A7 /* PangZhongHuaXingShu-2.ttf */,
+				E2730EC821DCB81C00AD65A7 /* MiNiJianShouJinShu-1.ttf */,
 				E21DB89C21D5C5150001BC3E /* H-GungSeo2.2.ttf */,
 				E2730EC421DCAD9900AD65A7 /* Assets.xcassets */,
 			);
@@ -319,6 +322,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E2730EC921DCB83200AD65A7 /* MiNiJianShouJinShu-1.ttf in Resources */,
 				E2730EC721DCAFF200AD65A7 /* PangZhongHuaXingShu-2.ttf in Resources */,
 				E21DB8AD21D623F70001BC3E /* MoMoSuiXiangTiXi-2.ttf in Resources */,
 				E21DB8AB21D61EDE0001BC3E /* KeKeTongHuaTi-2.ttf in Resources */,
