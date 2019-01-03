@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		C738162339E9D38A28E2184E /* libPods-ShowMe.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 696B6F354928D7CE8BB53D5C /* libPods-ShowMe.a */; };
 		CF5686A17A061621B221E7A1 /* libPods-ShowMeTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D35004ABE8EDC5FC4698188D /* libPods-ShowMeTests.a */; };
+		E21C735D21DE0E89000803D4 /* ChangeFontView.m in Sources */ = {isa = PBXBuildFile; fileRef = E21C735C21DE0E89000803D4 /* ChangeFontView.m */; };
 		E21DB86C21D5C48D0001BC3E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E21DB86B21D5C48D0001BC3E /* AppDelegate.m */; };
 		E21DB86F21D5C48D0001BC3E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E21DB86E21D5C48D0001BC3E /* ViewController.m */; };
 		E21DB87221D5C48D0001BC3E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E21DB87021D5C48D0001BC3E /* Main.storyboard */; };
@@ -50,6 +51,8 @@
 		696B6F354928D7CE8BB53D5C /* libPods-ShowMe.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ShowMe.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A43013609FD995037A848884 /* Pods-ShowMe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShowMe.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ShowMe/Pods-ShowMe.debug.xcconfig"; sourceTree = "<group>"; };
 		D35004ABE8EDC5FC4698188D /* libPods-ShowMeTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ShowMeTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E21C735B21DE0E89000803D4 /* ChangeFontView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChangeFontView.h; sourceTree = "<group>"; };
+		E21C735C21DE0E89000803D4 /* ChangeFontView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChangeFontView.m; sourceTree = "<group>"; };
 		E21DB86721D5C48D0001BC3E /* ShowMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShowMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E21DB86A21D5C48D0001BC3E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		E21DB86B21D5C48D0001BC3E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -203,6 +206,8 @@
 		E21DB8A621D61D120001BC3E /* view */ = {
 			isa = PBXGroup;
 			children = (
+				E21C735B21DE0E89000803D4 /* ChangeFontView.h */,
+				E21C735C21DE0E89000803D4 /* ChangeFontView.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -495,6 +500,7 @@
 			files = (
 				E21DB86F21D5C48D0001BC3E /* ViewController.m in Sources */,
 				E21DB87A21D5C48E0001BC3E /* main.m in Sources */,
+				E21C735D21DE0E89000803D4 /* ChangeFontView.m in Sources */,
 				E21DB86C21D5C48D0001BC3E /* AppDelegate.m in Sources */,
 				E2730ECC21DCC83D00AD65A7 /* UIBarButtonItem+Common.m in Sources */,
 				E2730EC121DCAB9C00AD65A7 /* UIView+LLXAlertPop.m in Sources */,

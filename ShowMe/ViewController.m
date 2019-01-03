@@ -13,6 +13,8 @@
 #import "UIView+LLXAlertPop.h"
 #import <ArrowheadMenu.h>
 #import <GPUImage.h>
+#import <POP.h>
+#import "ChangeFontView.h"
 
 #define APPSIZE [[UIScreen mainScreen] bounds].size
 
@@ -20,6 +22,9 @@
 #define ZHNAVBAR_H             44
 #define ZHNAVALL_H             (ZHSTATUS_H + ZHNAVBAR_H)
 #define WEAKSELF(classObject) __weak __typeof(classObject) weakSelfARC = classObject;
+
+static CGFloat kImgBtnW = 44;
+static CGFloat kMoreSettingBtnH = 50;
 
 @interface ViewController () <UITextFieldDelegate,MenuViewControllerDelegate,UIScrollViewDelegate,YYTextViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
@@ -30,6 +35,15 @@
 @property (nonatomic, strong) UIButton *moreBtn;
 @property (nonatomic, strong) UILabel *dateLabel;
 @property (nonatomic, strong) UIImageView *backgroundView;
+@property (nonatomic, strong) UIImage *backImg;
+
+@property (nonatomic, strong) UIButton *insertImgBtn; //插入图片
+@property (nonatomic, strong) UIButton *moreSettingBtn; //更是设置
+@property (nonatomic, strong) UIButton *createImgBtn; //生成更多图片
+
+@property (nonatomic, strong) UIView *moreSettingView;
+
+@property (nonatomic) BOOL hiddenMoreBtn;
 
 @end
 
@@ -62,55 +76,63 @@
     
 
     _inputView = [[YYTextView alloc] init];
-    _inputView.frame = CGRectMake(0, ZHNAVALL_H, APPSIZE.width, APPSIZE.height-ZHNAVALL_H-160);
+    _inputView.frame = CGRectMake(0, ZHNAVALL_H, APPSIZE.width, APPSIZE.height-ZHNAVALL_H);
     _inputView.placeholderText = @"愿这个世界  温柔以待";
     _inputView.backgroundColor = [UIColor whiteColor];
     _inputView.typingAttributes = attributes;
     _inputView.delegate = self;
     _inputView.textAlignment = NSTextAlignmentCenter;
     _inputView.font = [UIFont fontWithName:@"H-GungSeo" size:26];
+    _inputView.textContainerInset = UIEdgeInsetsMake(30, 10, 64, 10);
     [self.view addSubview:_inputView];
     
     _backgroundView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, APPSIZE.width, APPSIZE.height)];
     _backgroundView.image = [UIImage imageNamed:@"back"];
+    self.backImg = [UIImage imageNamed:@"back"];
     _backgroundView.contentMode = UIViewContentModeScaleAspectFill;
     [_inputView addSubview:_backgroundView];//设置背景图
     [_inputView insertSubview:_backgroundView atIndex:0];
     
-    
+//
     //moreBtn
     _moreBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    _moreBtn.frame = CGRectMake(20, _inputView.bottom + 20, self.view.width - 40, 40);
-    [_moreBtn setTitle:@"更多设置" forState:UIControlStateNormal];
+    _moreBtn.frame = CGRectMake(0, _inputView.bottom - 50, 44, 44);
+    _moreBtn.centerX = self.view.centerX;
+    [_moreBtn setImage:[UIImage imageNamed:@"jiahao"] forState:UIControlStateNormal];
     [_moreBtn addTarget:self action:@selector(showMenuAction:) forControlEvents:UIControlEventTouchUpInside];
-    _moreBtn.titleLabel.font = [UIFont systemFontOfSize:16];
-    _moreBtn.backgroundColor = [UIColor orangeColor];
-    _moreBtn.titleLabel.textColor = [UIColor darkGrayColor];
-    _moreBtn.layer.cornerRadius = 5;
-    _moreBtn.layer.masksToBounds = YES;
     [self.view addSubview:_moreBtn];
+
+    UIImage *insetImg = [UIImage imageNamed:@"sina_图片"];
+    UIImage *insetImg2 = [UIImage imageNamed:@"sina_更多设置"];
+    UIImage *insetImg3 = [UIImage imageNamed:@"sina_生成文字图片"];
     
-    _saveBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    _saveBtn.frame = CGRectMake(20, _moreBtn.bottom + 20, self.view.width - 40, 40);
-    [_saveBtn setTitle:@"生成文字图片" forState:UIControlStateNormal];
-    [_saveBtn addTarget:self action:@selector(btnAction:) forControlEvents:UIControlEventTouchUpInside];
-    _saveBtn.titleLabel.font = [UIFont systemFontOfSize:16];
-    _saveBtn.backgroundColor = [UIColor orangeColor];
-    _saveBtn.titleLabel.textColor = [UIColor darkGrayColor];
-    _saveBtn.layer.cornerRadius = 5;
-    _saveBtn.layer.masksToBounds = YES;
-    [self.view addSubview:_saveBtn];
+    _insertImgBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    _insertImgBtn.frame = CGRectMake(20, APPSIZE.height, kImgBtnW, kImgBtnW);
+    [_insertImgBtn setImage:insetImg forState:UIControlStateNormal];
+    _insertImgBtn.tag = 10001;
+    [self.view addSubview:_insertImgBtn];
     
-    NSMutableArray * fontArray = [[NSMutableArray alloc] init];
-    for (NSString * familyName in [UIFont familyNames]) {
-    NSLog(@"Font FamilyName = %@",familyName);
-    //*输出字体族科名字
-    for (NSString * fontName in [UIFont fontNamesForFamilyName:familyName]) {
-    NSLog(@"Font  %@",fontName);
-    [fontArray addObject:fontName];
-    }
-    }
+    _moreSettingBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    _moreSettingBtn.frame = CGRectMake(20, APPSIZE.height, kImgBtnW, kImgBtnW);
+    _moreSettingBtn.centerX = self.view.centerX;
+    _moreSettingBtn.tag = 10002;
+    [_moreSettingBtn setImage:insetImg2 forState:UIControlStateNormal];
+    [self.view addSubview:_moreSettingBtn];
     
+    _createImgBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    _createImgBtn.frame = CGRectMake(20, APPSIZE.height, kImgBtnW, kImgBtnW);
+    [_createImgBtn setImage:insetImg3 forState:UIControlStateNormal];
+    _createImgBtn.tag = 10003;
+    [self.view addSubview:_createImgBtn];
+    
+    _insertImgBtn.right = _moreSettingBtn.left - 40;
+    _createImgBtn.left = _moreSettingBtn.right + 40;
+    
+    [_insertImgBtn addTarget:self action:@selector(imgButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    [_moreSettingBtn addTarget:self action:@selector(imgButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    [_createImgBtn addTarget:self action:@selector(imgButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    
+//    [self logFont];
     
 }
 
@@ -119,17 +141,7 @@
     
     UIScrollView *_scrollView = (UIScrollView *)view;
     CGSize size = CGSizeZero;
-    
     size = CGSizeMake(_scrollView.contentSize.width, _scrollView.contentSize.height + 200);
-//    _backgroundView.frame = CGRectMake(0, 0, APPSIZE.width, _scrollView.contentSize.height + 200);
-//    _backgroundView.contentMode = UIViewContentModeScaleAspectFill;
-    
-//    if (_scrollView.contentSize.height > [UIScreen mainScreen].bounds.size.height) {
-//        size = _scrollView.contentSize;
-//    } else {
-//        size = view.size;
-//    }
-    
     UIGraphicsBeginImageContextWithOptions(size, NO, [UIScreen mainScreen].scale);
     {
         CGPoint savedContentOffset = _scrollView.contentOffset;
@@ -149,30 +161,120 @@
     
 }
 
+/// 显示更多
 - (void)showMenuAction:(UIButton *)sender {
+    if (self.hiddenMoreBtn) {
+        [self hiddenMoreBtnAction];
+    } else {
+        [self showMoreBtn];
+    }
+}
+
+- (void)showMoreBtn {
+    POPSpringAnimation *basicAnimation = [POPSpringAnimation animation];
+    basicAnimation.property = [POPAnimatableProperty propertyWithName: kPOPLayerRotation];
+    basicAnimation.toValue= @(M_PI/4); //2 M_PI is an entire rotation
+    [_moreBtn.layer pop_addAnimation:basicAnimation forKey:@"kPOPLayerRotation"];
     
-    ArrowheadMenu *VC = [[ArrowheadMenu alloc] initDefaultArrowheadMenuWithTitle:@[@"切换字体", @"字体大小", @"更改背景",@"对齐方式",@"背景模糊"] icon:nil menuPlacements:ShowAtTop];
-    VC.delegate = self;
-    [VC presentMenuView:sender];
+    ///三个按钮出现
+    POPSpringAnimation *basicAnimationY = [POPSpringAnimation animation];
+    basicAnimationY.property = [POPAnimatableProperty propertyWithName: kPOPLayerPositionY];
+    basicAnimationY.toValue= @(APPSIZE.height - 64 - 40);
+    [_insertImgBtn.layer pop_addAnimation:basicAnimationY forKey:@"kPOPLayerPositionY"];
+    [_moreSettingBtn.layer pop_addAnimation:basicAnimationY forKey:@"kPOPLayerPositionY"];
+    [_createImgBtn.layer pop_addAnimation:basicAnimationY forKey:@"kPOPLayerPositionY"];
+    
+    self.hiddenMoreBtn = YES;
+}
+
+- (void)hiddenMoreBtnAction {
+    self.hiddenMoreBtn = NO;
+    
+    POPSpringAnimation *basicAnimation = [POPSpringAnimation animation];
+    basicAnimation.property = [POPAnimatableProperty propertyWithName: kPOPLayerRotation];
+    basicAnimation.toValue= @(-(M_PI*1/400));
+    [_moreBtn.layer pop_addAnimation:basicAnimation forKey:@"kPOPLayerRotation"];
+    
+    ///三个按钮出现
+    POPSpringAnimation *basicAnimationY = [POPSpringAnimation animation];
+    basicAnimationY.property = [POPAnimatableProperty propertyWithName: kPOPLayerPositionY];
+    basicAnimationY.toValue= @(APPSIZE.height+ 64);
+    [_insertImgBtn.layer pop_addAnimation:basicAnimationY forKey:@"kPOPLayerPositionY"];
+    [_moreSettingBtn.layer pop_addAnimation:basicAnimationY forKey:@"kPOPLayerPositionY"];
+    [_createImgBtn.layer pop_addAnimation:basicAnimationY forKey:@"kPOPLayerPositionY"];
+}
+
+- (void)imgButtonAction:(UIButton *)sender {
+    switch (sender.tag) {
+        case 10001:
+            
+            break;
+        case 10002:
+            [self moreSetting];
+            break;
+        case 10003:
+            [self createImage];
+            break;
+    }
+}
+
+- (void)moreSetting {
+    
+    NSArray *arrayTitle = @[@"切换字体", @"字体大小", @"更改背景",@"对齐方式",@"背景模糊",@"取消"];
+    
+    for (int i = 0; i < arrayTitle.count; i++) {
+        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [btn setTitle:arrayTitle[i] forState:UIControlStateNormal];
+        [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        btn.titleLabel.font = [UIFont systemFontOfSize:20];
+        btn.backgroundColor = [UIColor whiteColor];
+        btn.frame = CGRectMake(0, i*kMoreSettingBtnH, APPSIZE.width, kMoreSettingBtnH);
+        btn.tag = 333 + i;
+        [btn addTarget:self action:@selector(moresettingBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+        [self.moreSettingView addSubview:btn];
+        
+        if (i > 0) {
+            UIView *lineView = [[UIView alloc] init];
+            lineView.frame = CGRectMake(0, i*kMoreSettingBtnH, APPSIZE.width, 0.5);
+            lineView.backgroundColor = [UIColor lightGrayColor];
+            [self.moreSettingView addSubview:lineView];
+        }
+    }
+    self.moreSettingView.height = arrayTitle.count * kMoreSettingBtnH;
+    
+    POPSpringAnimation *basicAnimationY = [POPSpringAnimation animation];
+    basicAnimationY.property = [POPAnimatableProperty propertyWithName: kPOPLayerPositionY];
+    basicAnimationY.toValue= @(APPSIZE.height - kMoreSettingBtnH*3);
+    
+    [self.moreSettingView.layer pop_addAnimation:basicAnimationY forKey:@"kPOPLayerPositionY"];
     
 }
 
-#pragma mark - 菜单代理方法
-- (void)menu:(BaseMenuViewController *)menu didClickedItemUnitWithTag:(NSInteger)tag andItemUnitTitle:(NSString *)title {
-
-    NSLog(@"\n\n\n\n点击了第%lu项名字为%@的菜单项", tag, title);
-    if (tag == 0) {
-        [self changeFont];
-    } else if (tag == 1) {
-        [self changeSize];
-    } else if (tag == 2) {
-        [self changeBackImg];
-    } else if (tag == 3) {
-        [self changAligment];
-    } else if (tag == 4) {
-        [self blurBackImg];
+- (void)moresettingBtnAction:(UIButton *)sender {
+    [self closeMoresettingView];
+    switch (sender.tag) {
+        case 333:
+            [self changeFont];
+            break;
+        case 334:
+            [self changeSize];
+            break;
+        case 335:
+            [self changeBackImg];
+            break;
+        case 336:
+            [self changAligment];
+            break;
+        case 337:
+            [self blurBackImg];
+            break;
+        case 338:
+            [self closeMoresettingView];
+            break;
+            
+        default:
+            break;
     }
-
 }
 
 - (void)changeFont {
@@ -180,7 +282,7 @@
     NSArray *arrayTitle = @[@"系统字体",@"",@"",@"",@"",@""];
     NSArray *arrayImage = @[@"",@"可可童话体",@"默默谁想体",@"h-gongshu",@"pangzhonghuaxingshu",@"瘦金体"];
     WEAKSELF(self)
-    
+
     [self.view createAlertViewTitleArray:arrayTitle arrayImage:arrayImage textColor:[UIColor blackColor] font:[UIFont systemFontOfSize:16] spacing:-15 actionBlock:^(UIButton * _Nullable button, NSInteger didRow) {
         //获取点击事件
         switch (didRow) {
@@ -202,7 +304,7 @@
             case 5:
                 weakSelfARC.inputView.font = [UIFont fontWithName:@"JSouJingSu" size:weakSelfARC.inputView.font.pointSize];
                 break;
-                
+
             default:
                 break;
         }
@@ -283,6 +385,14 @@
     }];
 }
 
+- (void)closeMoresettingView {
+    POPSpringAnimation *basicAnimationY = [POPSpringAnimation animation];
+    basicAnimationY.property = [POPAnimatableProperty propertyWithName: kPOPLayerPositionY];
+    basicAnimationY.toValue= @(APPSIZE.height + kMoreSettingBtnH*3);
+    
+    [self.moreSettingView.layer pop_addAnimation:basicAnimationY forKey:@"kPOPLayerPositionY"];
+}
+
 //空白背景
 - (void)remoeBackImge {
     self.backgroundView.image = nil;
@@ -316,18 +426,18 @@
 
 //背景模糊
 - (void)blurBackImg {
-    UIImage *img = self.backgroundView.image;
-    self.backgroundView.image = [self applyGaussianBlur:img];
+    UIImage *blurImg = [self applyGaussianBlur:self.backImg];
+    self.backgroundView.image = blurImg;
 }
 
 #pragma mark - ******UIImagePickerControllerDelegate******
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
     [picker dismissViewControllerAnimated:YES completion:nil];
     UIImage *img = info[UIImagePickerControllerOriginalImage];
+    self.backImg = img;
     self.backgroundView.image = img;
     NSLog(@"%@",info);
 }
-
 
 - (void)changAligment {
     NSArray *arrayTitle = @[@"左对齐",@"居中",@"右对齐"];
@@ -350,8 +460,7 @@
 
 }
 
-- (UIImage *)applyGaussianBlur:(UIImage *)image
-{
+- (UIImage *)applyGaussianBlur:(UIImage *)image {
     GPUImageGaussianBlurFilter *filter = [[GPUImageGaussianBlurFilter alloc] init];
     filter.texelSpacingMultiplier = 5.0;
     filter.blurRadiusInPixels = 5.0;
@@ -363,7 +472,7 @@
     return [filter imageFromCurrentFramebuffer];
 }
 
-- (void)btnAction:(UIButton *)sender {
+- (void)createImage {
     UIImage *img = [self convertCreateImageWithUIView:self.inputView];
     ShowImageViewController *showVC = [[ShowImageViewController alloc] initWithImage:img];
     [self.navigationController pushViewController:showVC animated:YES];
@@ -374,5 +483,27 @@
     _backgroundView.frame = CGRectMake(scrollView.contentOffset.x, scrollView.contentOffset.y, APPSIZE.width, APPSIZE.height);
 }
 
+- (UIView *)moreSettingView {
+    if (!_moreSettingView) {
+        _moreSettingView = [[UIView alloc] init];
+        _moreSettingView.frame = CGRectMake(0, APPSIZE.height + 20, APPSIZE.width, 0);
+        _moreSettingView.backgroundColor = [UIColor whiteColor];
+        [self.view addSubview:_moreSettingView];
+    }
+    return _moreSettingView;
+}
+
+- (void)logFont {
+    // 打印字体
+     NSMutableArray * fontArray = [[NSMutableArray alloc] init];
+     for (NSString * familyName in [UIFont familyNames]) {
+         NSLog(@"Font FamilyName = %@",familyName);
+         //输出字体族科名字
+         for (NSString * fontName in [UIFont fontNamesForFamilyName:familyName]) {
+             NSLog(@"Font  %@",fontName);
+             [fontArray addObject:fontName];
+         }
+     }
+}
 
 @end
