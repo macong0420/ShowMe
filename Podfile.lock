@@ -1,4 +1,5 @@
 PODS:
+  - GPUImage (0.1.7)
   - LvPopupMenu (1.0.0)
   - pop (1.0.12)
   - YCPopover (1.2.0)
@@ -7,17 +8,19 @@ PODS:
   - YYKit/no-arc (1.0.9)
 
 DEPENDENCIES:
+  - GPUImage (~> 0.1.7)
   - LvPopupMenu
   - pop (~> 1.0)
   - YCPopover
   - YYKit
 
 SPEC CHECKSUMS:
+  GPUImage: 733a5f0fab92df9de1c37ba9df520a833ccb406d
   LvPopupMenu: 9b98377a4ec36fe036706dad0d180da9365cec3a
   pop: d582054913807fd11fd50bfe6a539d91c7e1a55a
   YCPopover: a11e06b685e9cddaa10e8f1bb3c1ba5bb52d719e
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
 
-PODFILE CHECKSUM: 52ee4d115c4d2e3c56719e407df7b043e90b386b
+PODFILE CHECKSUM: 58525155245e0e9f230643de43c1192f4e5b315a
 
 COCOAPODS: 1.4.0

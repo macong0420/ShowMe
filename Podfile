@@ -6,4 +6,5 @@ pod 'YYKit'
 pod 'YCPopover'
 pod 'pop', '~> 1.0'
 pod 'LvPopupMenu'
+pod 'GPUImage', '~> 0.1.7'
 end

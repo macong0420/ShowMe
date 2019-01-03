@@ -12,6 +12,7 @@
 #import <UIViewController+YCPopover.h>
 #import "UIView+LLXAlertPop.h"
 #import <ArrowheadMenu.h>
+#import <GPUImage.h>
 
 #define APPSIZE [[UIScreen mainScreen] bounds].size
 
@@ -20,11 +21,8 @@
 #define ZHNAVALL_H             (ZHSTATUS_H + ZHNAVBAR_H)
 #define WEAKSELF(classObject) __weak __typeof(classObject) weakSelfARC = classObject;
 
-@interface ViewController () <UITextFieldDelegate,MenuViewControllerDelegate,UIScrollViewDelegate,YYTextViewDelegate>
+@interface ViewController () <UITextFieldDelegate,MenuViewControllerDelegate,UIScrollViewDelegate,YYTextViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
-{
-    UILabel *lab;
-}
 
 @property (nonatomic, strong) UITextField *inputField;
 @property (nonatomic, strong) YYTextView *inputView;
@@ -66,11 +64,11 @@
     _inputView = [[YYTextView alloc] init];
     _inputView.frame = CGRectMake(0, ZHNAVALL_H, APPSIZE.width, APPSIZE.height-ZHNAVALL_H-160);
     _inputView.placeholderText = @"愿这个世界  温柔以待";
-    _inputView.font = [UIFont systemFontOfSize:20];
     _inputView.backgroundColor = [UIColor whiteColor];
     _inputView.typingAttributes = attributes;
     _inputView.delegate = self;
     _inputView.textAlignment = NSTextAlignmentCenter;
+    _inputView.font = [UIFont fontWithName:@"H-GungSeo" size:26];
     [self.view addSubview:_inputView];
     
     _backgroundView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, APPSIZE.width, APPSIZE.height)];
@@ -153,21 +151,28 @@
 
 - (void)showMenuAction:(UIButton *)sender {
     
-    ArrowheadMenu *VC = [[ArrowheadMenu alloc] initDefaultArrowheadMenuWithTitle:@[@"切换字体", @"字体大小", @"更改背景"] icon:nil menuPlacements:ShowAtTop];
+    ArrowheadMenu *VC = [[ArrowheadMenu alloc] initDefaultArrowheadMenuWithTitle:@[@"切换字体", @"字体大小", @"更改背景",@"对齐方式",@"背景模糊"] icon:nil menuPlacements:ShowAtTop];
     VC.delegate = self;
     [VC presentMenuView:sender];
+    
 }
 
 #pragma mark - 菜单代理方法
 - (void)menu:(BaseMenuViewController *)menu didClickedItemUnitWithTag:(NSInteger)tag andItemUnitTitle:(NSString *)title {
-    
+
     NSLog(@"\n\n\n\n点击了第%lu项名字为%@的菜单项", tag, title);
     if (tag == 0) {
         [self changeFont];
     } else if (tag == 1) {
         [self changeSize];
+    } else if (tag == 2) {
+        [self changeBackImg];
+    } else if (tag == 3) {
+        [self changAligment];
+    } else if (tag == 4) {
+        [self blurBackImg];
     }
-    
+
 }
 
 - (void)changeFont {
@@ -180,22 +185,22 @@
         //获取点击事件
         switch (didRow) {
             case 0:
-                weakSelfARC.inputView.font = [UIFont systemFontOfSize:20];
+                weakSelfARC.inputView.font = [UIFont systemFontOfSize:weakSelfARC.inputView.font.pointSize];
                 break;
             case 1:
-                weakSelfARC.inputView.font = [UIFont fontWithName:@"Undefined" size:20];
+                weakSelfARC.inputView.font = [UIFont fontWithName:@"Undefined" size:weakSelfARC.inputView.font.pointSize];
                 break;
             case 2:
-                weakSelfARC.inputView.font = [UIFont fontWithName:@"suibixi-Regular" size:20];
+                weakSelfARC.inputView.font = [UIFont fontWithName:@"suibixi-Regular" size:weakSelfARC.inputView.font.pointSize];
                 break;
             case 3:
-                weakSelfARC.inputView.font = [UIFont fontWithName:@"H-GungSeo" size:20];
+                weakSelfARC.inputView.font = [UIFont fontWithName:@"H-GungSeo" size:weakSelfARC.inputView.font.pointSize];
                 break;
             case 4:
-                weakSelfARC.inputView.font = [UIFont fontWithName:@"AMCSongGBK-Light" size:20];
+                weakSelfARC.inputView.font = [UIFont fontWithName:@"AMCSongGBK-Light" size:weakSelfARC.inputView.font.pointSize];
                 break;
             case 5:
-                weakSelfARC.inputView.font = [UIFont fontWithName:@"JSouJingSu" size:20];
+                weakSelfARC.inputView.font = [UIFont fontWithName:@"JSouJingSu" size:weakSelfARC.inputView.font.pointSize];
                 break;
                 
             default:
@@ -253,6 +258,109 @@
         }
     }];
 
+}
+
+- (void)changeBackImg {
+    NSArray *arrayTitle = @[@"空白背景",@"拍照",@"从手机相册选择",@"默认"];
+    UIColor *color = [UIColor blackColor];
+    WEAKSELF(self)
+    [self.view createAlertViewTitleArray:arrayTitle textColor:color font:[UIFont systemFontOfSize:16] actionBlock:^(UIButton * _Nullable button, NSInteger didRow) {
+        //获取点击事件
+        switch (didRow) {
+            case 0:
+                [weakSelfARC remoeBackImge];
+                break;
+            case 1:
+                [weakSelfARC takePhoto];
+                break;
+            case 2:
+                [weakSelfARC selectPhoto];
+                break;
+            case 3:
+                [weakSelfARC defaultImg];
+                break;
+        }
+    }];
+}
+
+//空白背景
+- (void)remoeBackImge {
+    self.backgroundView.image = nil;
+}
+
+//默认
+- (void)defaultImg {
+    self.backgroundView.image = [UIImage imageNamed:@"back"];
+}
+
+//拍照
+- (void)takePhoto {
+    //UIImagePickerControllerSourceTypePhotoLibrary, 从所有相册选择
+    //UIImagePickerControllerSourceTypeCamera, //拍一张照片
+    //UIImagePickerControllerSourceTypeSavedPhotosAlbum//从moments选择一张照片
+    //判断照相机能否使用
+    if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) return;
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+    picker.delegate = self;
+    [self presentViewController:picker animated:YES completion:nil];
+}
+
+//相册选择
+- (void)selectPhoto {
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    picker.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+    picker.delegate = self;
+    [self presentViewController:picker animated:YES completion:nil];
+}
+
+//背景模糊
+- (void)blurBackImg {
+    UIImage *img = self.backgroundView.image;
+    self.backgroundView.image = [self applyGaussianBlur:img];
+}
+
+#pragma mark - ******UIImagePickerControllerDelegate******
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
+    [picker dismissViewControllerAnimated:YES completion:nil];
+    UIImage *img = info[UIImagePickerControllerOriginalImage];
+    self.backgroundView.image = img;
+    NSLog(@"%@",info);
+}
+
+
+- (void)changAligment {
+    NSArray *arrayTitle = @[@"左对齐",@"居中",@"右对齐"];
+    UIColor *color = [UIColor blackColor];
+    WEAKSELF(self)
+    [self.view createAlertViewTitleArray:arrayTitle textColor:color font:[UIFont systemFontOfSize:16] actionBlock:^(UIButton * _Nullable button, NSInteger didRow) {
+        //获取点击事件
+        switch (didRow) {
+            case 0:
+                weakSelfARC.inputView.textAlignment = NSTextAlignmentLeft;
+                break;
+            case 1:
+                weakSelfARC.inputView.textAlignment = NSTextAlignmentCenter;
+                break;
+            case 2:
+                weakSelfARC.inputView.textAlignment = NSTextAlignmentRight;
+                break;
+        }
+    }];
+
+}
+
+- (UIImage *)applyGaussianBlur:(UIImage *)image
+{
+    GPUImageGaussianBlurFilter *filter = [[GPUImageGaussianBlurFilter alloc] init];
+    filter.texelSpacingMultiplier = 5.0;
+    filter.blurRadiusInPixels = 5.0;
+    [filter forceProcessingAtSize:image.size];
+    GPUImagePicture *pic = [[GPUImagePicture alloc] initWithImage:image];
+    [pic addTarget:filter];
+    [pic processImage];
+    [filter useNextFrameForImageCapture];
+    return [filter imageFromCurrentFramebuffer];
 }
 
 - (void)btnAction:(UIButton *)sender {
