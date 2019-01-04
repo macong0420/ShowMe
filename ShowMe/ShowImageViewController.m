@@ -8,6 +8,7 @@
 
 #import "ShowImageViewController.h"
 #import <YYKit.h>
+#import <Toast.h>
 
 @interface ShowImageViewController ()
 @property (nonatomic, strong) UIScrollView *scrollview;
@@ -32,12 +33,12 @@
 }
 
 - (void)setupUI {
-    
+    CGFloat w = [UIScreen mainScreen].bounds.size.width-40;
     self.view.backgroundColor = [UIColor groupTableViewBackgroundColor];
-    
+//    imageView.frame = CGRectMake(0, 0, self.inputView.width - 20, self.inputView.width/image.size.width*image.size.height);
     _scrollview = [[UIScrollView alloc] initWithFrame:CGRectMake(20, 80, [UIScreen mainScreen].bounds.size.width - 40, [UIScreen mainScreen].bounds.size.height-80 - 80)];
     _scrollview.contentSize = CGSizeMake([UIScreen mainScreen].bounds.size.width-40, _img.size.height);
-    _imgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width-40, _img.size.height)];
+    _imgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, w, w/_img.size.width*_img.size.height)];
     _imgView.image = _img;
     [self.view addSubview:_scrollview];
     
@@ -70,7 +71,11 @@
     if(error != NULL){
         msg = @"保存图片失败" ;
     }else{
-        msg = @"保存图片成功";
+        CSToastStyle *style = [[CSToastStyle alloc] initWithDefaultStyle];
+        [self.view makeToast:@"保存图片成功"
+                    duration:1.0
+                    position:CSToastPositionCenter
+                       style:style];
     }
     
 }

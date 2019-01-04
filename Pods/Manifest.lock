@@ -1,7 +1,9 @@
 PODS:
   - GPUImage (0.1.7)
   - LvPopupMenu (1.0.0)
+  - MBProgressHUD (1.1.0)
   - pop (1.0.12)
+  - Toast (4.0.0)
   - YCPopover (1.2.0)
   - YYKit (1.0.9):
     - YYKit/no-arc (= 1.0.9)
@@ -10,17 +12,21 @@ PODS:
 DEPENDENCIES:
   - GPUImage (~> 0.1.7)
   - LvPopupMenu
+  - MBProgressHUD (~> 1.1.0)
   - pop (~> 1.0)
+  - Toast (~> 4.0.0)
   - YCPopover
   - YYKit
 
 SPEC CHECKSUMS:
   GPUImage: 733a5f0fab92df9de1c37ba9df520a833ccb406d
   LvPopupMenu: 9b98377a4ec36fe036706dad0d180da9365cec3a
+  MBProgressHUD: e7baa36a220447d8aeb12769bf0585582f3866d9
   pop: d582054913807fd11fd50bfe6a539d91c7e1a55a
+  Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
   YCPopover: a11e06b685e9cddaa10e8f1bb3c1ba5bb52d719e
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
 
-PODFILE CHECKSUM: 58525155245e0e9f230643de43c1192f4e5b315a
+PODFILE CHECKSUM: 3096eb469ea7d53b7abec6b41b9807d691c4111f
 
 COCOAPODS: 1.4.0

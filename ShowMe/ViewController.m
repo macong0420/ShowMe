@@ -8,11 +8,13 @@
 
 #import "ViewController.h"
 #import <YYKit.h>
+#import <NSAttributedString+YYText.h>
 #import "ShowImageViewController.h"
 #import <UIViewController+YCPopover.h>
 #import "UIView+LLXAlertPop.h"
 #import <ArrowheadMenu.h>
 #import <GPUImage.h>
+
 #import <POP.h>
 #import "ChangeFontView.h"
 
@@ -43,7 +45,15 @@ static CGFloat kMoreSettingBtnH = 50;
 
 @property (nonatomic, strong) UIView *moreSettingView;
 
+@property (nonatomic, strong) NSMutableAttributedString *contentText;
+
+@property (nonatomic, strong) UIFont *userSettingFont;
+
+@property (nonatomic,copy) NSString *inputStr;
+
 @property (nonatomic) BOOL hiddenMoreBtn;
+@property (nonatomic) BOOL isInsert; //是否是插入图片操作
+
 
 @end
 
@@ -55,6 +65,7 @@ static CGFloat kMoreSettingBtnH = 50;
     [self setupUI];
 }
 
+#pragma mark - 控件初始化
 - (void)setupUI {
     
     /*
@@ -85,15 +96,13 @@ static CGFloat kMoreSettingBtnH = 50;
     _inputView.font = [UIFont fontWithName:@"H-GungSeo" size:26];
     _inputView.textContainerInset = UIEdgeInsetsMake(30, 10, 64, 10);
     [self.view addSubview:_inputView];
+    self.userSettingFont = _inputView.font;
     
     _backgroundView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, APPSIZE.width, APPSIZE.height)];
-    _backgroundView.image = [UIImage imageNamed:@"back"];
-    self.backImg = [UIImage imageNamed:@"back"];
     _backgroundView.contentMode = UIViewContentModeScaleAspectFill;
     [_inputView addSubview:_backgroundView];//设置背景图
     [_inputView insertSubview:_backgroundView atIndex:0];
-    
-//
+
     //moreBtn
     _moreBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     _moreBtn.frame = CGRectMake(0, _inputView.bottom - 50, 44, 44);
@@ -133,35 +142,9 @@ static CGFloat kMoreSettingBtnH = 50;
     [_createImgBtn addTarget:self action:@selector(imgButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     
 //    [self logFont];
-    
 }
 
-- (UIImage *)convertCreateImageWithUIView:(UIView *)view {
-    UIImage* image = nil;
-    
-    UIScrollView *_scrollView = (UIScrollView *)view;
-    CGSize size = CGSizeZero;
-    size = CGSizeMake(_scrollView.contentSize.width, _scrollView.contentSize.height + 200);
-    UIGraphicsBeginImageContextWithOptions(size, NO, [UIScreen mainScreen].scale);
-    {
-        CGPoint savedContentOffset = _scrollView.contentOffset;
-        CGRect savedFrame = _scrollView.frame;
-        _scrollView.contentOffset = CGPointZero;
-        _scrollView.frame = CGRectMake(0, 0, size.width, size.height + 80);
-        _backgroundView.frame = _scrollView.frame;
-        [_scrollView.layer renderInContext: UIGraphicsGetCurrentContext()];
-        image = UIGraphicsGetImageFromCurrentImageContext();
-        _scrollView.contentOffset = savedContentOffset;
-        _scrollView.frame = savedFrame;
-    }
-    UIGraphicsEndImageContext();
-    
-
-    return image;
-    
-}
-
-/// 显示更多
+#pragma mark - 显示更多
 - (void)showMenuAction:(UIButton *)sender {
     if (self.hiddenMoreBtn) {
         [self hiddenMoreBtnAction];
@@ -170,13 +153,13 @@ static CGFloat kMoreSettingBtnH = 50;
     }
 }
 
+///三个按钮出现
 - (void)showMoreBtn {
     POPSpringAnimation *basicAnimation = [POPSpringAnimation animation];
     basicAnimation.property = [POPAnimatableProperty propertyWithName: kPOPLayerRotation];
     basicAnimation.toValue= @(M_PI/4); //2 M_PI is an entire rotation
     [_moreBtn.layer pop_addAnimation:basicAnimation forKey:@"kPOPLayerRotation"];
     
-    ///三个按钮出现
     POPSpringAnimation *basicAnimationY = [POPSpringAnimation animation];
     basicAnimationY.property = [POPAnimatableProperty propertyWithName: kPOPLayerPositionY];
     basicAnimationY.toValue= @(APPSIZE.height - 64 - 40);
@@ -187,6 +170,7 @@ static CGFloat kMoreSettingBtnH = 50;
     self.hiddenMoreBtn = YES;
 }
 
+///三个按钮消失
 - (void)hiddenMoreBtnAction {
     self.hiddenMoreBtn = NO;
     
@@ -205,9 +189,10 @@ static CGFloat kMoreSettingBtnH = 50;
 }
 
 - (void)imgButtonAction:(UIButton *)sender {
+    [self hiddenMoreBtnAction];
     switch (sender.tag) {
         case 10001:
-            
+            [self insetImg];
             break;
         case 10002:
             [self moreSetting];
@@ -218,6 +203,26 @@ static CGFloat kMoreSettingBtnH = 50;
     }
 }
 
+#pragma mark - 插入图片
+- (void)insetImg {
+    self.isInsert = YES;
+    NSArray *arrayTitle = @[@"拍照",@"从手机相册选择"];
+    UIColor *color = [UIColor blackColor];
+    WEAKSELF(self)
+    [self.view createAlertViewTitleArray:arrayTitle textColor:color font:[UIFont systemFontOfSize:16] actionBlock:^(UIButton * _Nullable button, NSInteger didRow) {
+        //获取点击事件
+        switch (didRow) {
+            case 0:
+                [weakSelfARC takePhoto];
+                break;
+            case 1:
+                [weakSelfARC selectPhoto];
+                break;
+        }
+    }];
+}
+
+#pragma mark - 更多设置
 - (void)moreSetting {
     
     NSArray *arrayTitle = @[@"切换字体", @"字体大小", @"更改背景",@"对齐方式",@"背景模糊",@"取消"];
@@ -277,6 +282,7 @@ static CGFloat kMoreSettingBtnH = 50;
     }
 }
 
+//更改字体
 - (void)changeFont {
 
     NSArray *arrayTitle = @[@"系统字体",@"",@"",@"",@"",@""];
@@ -309,8 +315,11 @@ static CGFloat kMoreSettingBtnH = 50;
                 break;
         }
     }];
+    
+    self.userSettingFont = _inputView.font;
 }
 
+//字体大小
 - (void)changeSize {
     NSArray *arrayTitle = @[@"20",@"22",@"24",@"26",@"28",@"30",@"32",@"34",@"36",@"38",@"40"];
     UIColor *color = [UIColor blueColor];
@@ -359,10 +368,14 @@ static CGFloat kMoreSettingBtnH = 50;
                 break;
         }
     }];
+    
+    self.userSettingFont = _inputView.font;
 
 }
 
+//更改背景
 - (void)changeBackImg {
+    self.isInsert = NO;
     NSArray *arrayTitle = @[@"空白背景",@"拍照",@"从手机相册选择",@"默认"];
     UIColor *color = [UIColor blackColor];
     WEAKSELF(self)
@@ -385,22 +398,37 @@ static CGFloat kMoreSettingBtnH = 50;
     }];
 }
 
-- (void)closeMoresettingView {
-    POPSpringAnimation *basicAnimationY = [POPSpringAnimation animation];
-    basicAnimationY.property = [POPAnimatableProperty propertyWithName: kPOPLayerPositionY];
-    basicAnimationY.toValue= @(APPSIZE.height + kMoreSettingBtnH*3);
+//对齐方式
+- (void)changAligment {
+    NSArray *arrayTitle = @[@"左对齐",@"居中",@"右对齐"];
+    UIColor *color = [UIColor blackColor];
+    WEAKSELF(self)
+    [self.view createAlertViewTitleArray:arrayTitle textColor:color font:[UIFont systemFontOfSize:16] actionBlock:^(UIButton * _Nullable button, NSInteger didRow) {
+        //获取点击事件
+        switch (didRow) {
+            case 0:
+                weakSelfARC.inputView.textAlignment = NSTextAlignmentLeft;
+                break;
+            case 1:
+                weakSelfARC.inputView.textAlignment = NSTextAlignmentCenter;
+                break;
+            case 2:
+                weakSelfARC.inputView.textAlignment = NSTextAlignmentRight;
+                break;
+        }
+    }];
     
-    [self.moreSettingView.layer pop_addAnimation:basicAnimationY forKey:@"kPOPLayerPositionY"];
+}
+
+//背景模糊
+- (void)blurBackImg {
+    UIImage *blurImg = [self applyGaussianBlur:self.backImg];
+    self.backgroundView.image = blurImg;
 }
 
 //空白背景
 - (void)remoeBackImge {
     self.backgroundView.image = nil;
-}
-
-//默认
-- (void)defaultImg {
-    self.backgroundView.image = [UIImage imageNamed:@"back"];
 }
 
 //拍照
@@ -424,42 +452,79 @@ static CGFloat kMoreSettingBtnH = 50;
     [self presentViewController:picker animated:YES completion:nil];
 }
 
-//背景模糊
-- (void)blurBackImg {
-    UIImage *blurImg = [self applyGaussianBlur:self.backImg];
-    self.backgroundView.image = blurImg;
+//默认
+- (void)defaultImg {
+    self.backgroundView.image = [UIImage imageNamed:@"back"];
 }
 
 #pragma mark - ******UIImagePickerControllerDelegate******
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
     [picker dismissViewControllerAnimated:YES completion:nil];
     UIImage *img = info[UIImagePickerControllerOriginalImage];
-    self.backImg = img;
-    self.backgroundView.image = img;
-    NSLog(@"%@",info);
+    
+    if (self.isInsert) {
+        [self insertImage:img];
+        
+        self.inputView.font = self.userSettingFont;
+    } else {
+        self.backImg = img;
+        self.backgroundView.image = img;
+    }
 }
 
-- (void)changAligment {
-    NSArray *arrayTitle = @[@"左对齐",@"居中",@"右对齐"];
-    UIColor *color = [UIColor blackColor];
-    WEAKSELF(self)
-    [self.view createAlertViewTitleArray:arrayTitle textColor:color font:[UIFont systemFontOfSize:16] actionBlock:^(UIButton * _Nullable button, NSInteger didRow) {
-        //获取点击事件
-        switch (didRow) {
-            case 0:
-                weakSelfARC.inputView.textAlignment = NSTextAlignmentLeft;
-                break;
-            case 1:
-                weakSelfARC.inputView.textAlignment = NSTextAlignmentCenter;
-                break;
-            case 2:
-                weakSelfARC.inputView.textAlignment = NSTextAlignmentRight;
-                break;
-        }
-    }];
-
+#pragma mark - 图文混排 插入图片
+- (void)insertImage:(UIImage *)img {
+    //创建最主要的attribute文本
+    NSMutableAttributedString *contentText = self.inputView.attributedText.mutableCopy;
+    //图片资源
+    YYImage *image = (YYImage *)img;
+    //添加文本+图片
+    YYAnimatedImageView *imageView = [[YYAnimatedImageView alloc] initWithImage:image];
+    imageView.frame = CGRectMake(0, 0, self.inputView.width - 20, self.inputView.width/image.size.width*image.size.height);
+    NSMutableAttributedString *attachText = [NSMutableAttributedString attachmentStringWithContent:imageView contentMode:UIViewContentModeScaleAspectFit attachmentSize:imageView.size alignToFont:self.userSettingFont alignment:YYTextVerticalAlignmentCenter];
+    
+    [contentText appendAttributedString:attachText];
+    self.inputView.attributedText = contentText;
+    self.contentText = contentText;
+    
+    NSMutableAttributedString *lineBreakKey = [[NSMutableAttributedString alloc] initWithString:@"\n\n\n"];
+    lineBreakKey.font = self.userSettingFont;
+    [contentText appendAttributedString:lineBreakKey];
+    
+    self.inputView.selectedRange = NSMakeRange(contentText.length, 0);
+    self.contentText = contentText;
+    [self.inputView becomeFirstResponder];
 }
 
+- (BOOL)textViewShouldBeginEditing:(YYTextView *)textView {
+
+    if (self.isInsert && self.inputView.text.length) {
+        NSString *str0 = @"";
+        NSDictionary *dictAttr0 = @{NSFontAttributeName:self.userSettingFont};
+        NSAttributedString *attr0 = [[NSAttributedString alloc]initWithString:str0 attributes:dictAttr0];
+        [self.contentText appendAttributedString:attr0];
+        
+        NSMutableParagraphStyle *paragraph = [[NSMutableParagraphStyle alloc] init];
+        paragraph.alignment = self.inputView.textAlignment;
+        [self.contentText addAttribute:NSParagraphStyleAttributeName value:paragraph range:NSMakeRange(0, self.contentText.length)];
+        
+        self.inputView.attributedText = self.contentText;
+        self.inputView.selectedRange = NSMakeRange(self.contentText.length, 0);
+    }
+    return YES;
+}
+
+- (void)textViewDidChange:(YYTextView *)textView {
+    self.inputStr = textView.text;
+    NSLog(@"%@",textView.text);
+}
+
+- (void)textViewDidBeginEditing:(YYTextView *)textView {
+    self.isInsert = NO;
+}
+
+#pragma mark - 辅助方法
+//虚化
 - (UIImage *)applyGaussianBlur:(UIImage *)image {
     GPUImageGaussianBlurFilter *filter = [[GPUImageGaussianBlurFilter alloc] init];
     filter.texelSpacingMultiplier = 5.0;
@@ -478,8 +543,40 @@ static CGFloat kMoreSettingBtnH = 50;
     [self.navigationController pushViewController:showVC animated:YES];
 }
 
+- (UIImage *)convertCreateImageWithUIView:(UIView *)view {
+    UIImage* image = nil;
+    
+    UIScrollView *_scrollView = (UIScrollView *)view;
+    CGSize size = CGSizeZero;
+    size = CGSizeMake(_scrollView.contentSize.width, _scrollView.contentSize.height + 200);
+    UIGraphicsBeginImageContextWithOptions(size, NO, [UIScreen mainScreen].scale);
+    {
+        CGPoint savedContentOffset = _scrollView.contentOffset;
+        CGRect savedFrame = _scrollView.frame;
+        _scrollView.contentOffset = CGPointZero;
+        _scrollView.frame = CGRectMake(0, 0, size.width, size.height + 80);
+        _backgroundView.frame = _scrollView.frame;
+        [_scrollView.layer renderInContext: UIGraphicsGetCurrentContext()];
+        image = UIGraphicsGetImageFromCurrentImageContext();
+        _scrollView.contentOffset = savedContentOffset;
+        _scrollView.frame = savedFrame;
+    }
+    UIGraphicsEndImageContext();
+    
+    
+    return image;
+    
+}
+
+- (void)closeMoresettingView {
+    POPSpringAnimation *basicAnimationY = [POPSpringAnimation animation];
+    basicAnimationY.property = [POPAnimatableProperty propertyWithName: kPOPLayerPositionY];
+    basicAnimationY.toValue= @(APPSIZE.height + kMoreSettingBtnH*3);
+    
+    [self.moreSettingView.layer pop_addAnimation:basicAnimationY forKey:@"kPOPLayerPositionY"];
+}
+
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    NSLog(@"====");
     _backgroundView.frame = CGRectMake(scrollView.contentOffset.x, scrollView.contentOffset.y, APPSIZE.width, APPSIZE.height);
 }
 
