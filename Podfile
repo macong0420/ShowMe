@@ -9,4 +9,5 @@ pod 'LvPopupMenu'
 pod 'GPUImage', '~> 0.1.7'
 pod 'Toast', '~> 4.0.0'
 pod 'MBProgressHUD', '~> 1.1.0'
+pod 'LYEmptyView'
 end

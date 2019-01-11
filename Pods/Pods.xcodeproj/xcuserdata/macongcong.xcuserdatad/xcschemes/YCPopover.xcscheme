@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "11FD204E549FA3212C5FA73462367C3C"
+               BlueprintIdentifier = "2A51A9494C0D2A90998A1A8830053D3E"
                BlueprintName = "YCPopover"
                ReferencedContainer = "container:Pods.xcodeproj"
                BuildableName = "libYCPopover.a">

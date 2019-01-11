@@ -17,6 +17,7 @@
 
 #import <POP.h>
 #import "ChangeFontView.h"
+#import "MCEditTopCoverView.h"
 
 #define APPSIZE [[UIScreen mainScreen] bounds].size
 
@@ -27,8 +28,12 @@
 
 static CGFloat kImgBtnW = 44;
 static CGFloat kMoreSettingBtnH = 50;
+static CGFloat kTitleLabelW = 100;
 
-@interface ViewController () <UITextFieldDelegate,MenuViewControllerDelegate,UIScrollViewDelegate,YYTextViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
+@interface ViewController () < UITextFieldDelegate,MenuViewControllerDelegate,
+                               UIScrollViewDelegate,YYTextViewDelegate,UIImagePickerControllerDelegate,
+                               UINavigationControllerDelegate,MCEditTopCoverViewDelegate
+                             >
 
 
 @property (nonatomic, strong) UITextField *inputField;
@@ -40,8 +45,13 @@ static CGFloat kMoreSettingBtnH = 50;
 @property (nonatomic, strong) UIImage *backImg;
 
 @property (nonatomic, strong) UIButton *insertImgBtn; //插入图片
+@property (nonatomic, strong) UILabel *insertTitleLabel;
+
 @property (nonatomic, strong) UIButton *moreSettingBtn; //更是设置
+@property (nonatomic, strong) UILabel *moreTitleLabel;
+
 @property (nonatomic, strong) UIButton *createImgBtn; //生成更多图片
+@property (nonatomic, strong) UILabel *createTitleLabel;
 
 @property (nonatomic, strong) UIView *moreSettingView;
 
@@ -53,6 +63,11 @@ static CGFloat kMoreSettingBtnH = 50;
 
 @property (nonatomic) BOOL hiddenMoreBtn;
 @property (nonatomic) BOOL isInsert; //是否是插入图片操作
+@property (nonatomic) BOOL isTopCoverInsert;
+
+@property (nonatomic, strong) UITextField *titleField;//标题
+@property (nonatomic, strong) MCEditTopCoverView *topCoverImgView;
+
 
 
 @end
@@ -67,6 +82,23 @@ static CGFloat kMoreSettingBtnH = 50;
 
 #pragma mark - 控件初始化
 - (void)setupUI {
+    
+    //基础设置
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+    //去掉导航栏底部的黑线
+    self.navigationController.navigationBar.shadowImage = [UIImage new];
+    
+    _topCoverImgView = [[MCEditTopCoverView alloc] initWithFrame:CGRectMake(0, ZHNAVALL_H, ZHSCREEN_Width, ZHSCREEN_Width*0.8)];
+    _topCoverImgView.delegate = self;
+    [self.view addSubview:_topCoverImgView];
+    
+    //标题
+    _titleField = [[UITextField alloc] init];
+    _titleField.placeholder = @"Title";
+    _titleField.font = [UIFont boldSystemFontOfSize:24];
+    _titleField.textAlignment = NSTextAlignmentCenter;
+    _titleField.frame = CGRectMake(20, _topCoverImgView.bottom+10, ZHSCREEN_Width-40, 30);
+    [self.view addSubview:_titleField];
     
     /*
      H-宫书                H-GungSeo
@@ -87,19 +119,22 @@ static CGFloat kMoreSettingBtnH = 50;
     
 
     _inputView = [[YYTextView alloc] init];
-    _inputView.frame = CGRectMake(0, ZHNAVALL_H, APPSIZE.width, APPSIZE.height-ZHNAVALL_H);
+    _inputView.frame = CGRectMake(0, _titleField.bottom + 50, APPSIZE.width, APPSIZE.height-ZHNAVALL_H);
     _inputView.placeholderText = @"愿这个世界  温柔以待";
     _inputView.backgroundColor = [UIColor whiteColor];
     _inputView.typingAttributes = attributes;
     _inputView.delegate = self;
-    _inputView.textAlignment = NSTextAlignmentCenter;
-    _inputView.font = [UIFont fontWithName:@"H-GungSeo" size:26];
+    _inputView.textAlignment = NSTextAlignmentLeft;
+//    _inputView.font = [UIFont fontWithName:@"H-GungSeo" size:26];
+    _inputView.font = [UIFont systemFontOfSize:16];
     _inputView.textContainerInset = UIEdgeInsetsMake(30, 10, 64, 10);
     [self.view addSubview:_inputView];
     self.userSettingFont = _inputView.font;
     
     _backgroundView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, APPSIZE.width, APPSIZE.height)];
     _backgroundView.contentMode = UIViewContentModeScaleAspectFill;
+    
+    
     [_inputView addSubview:_backgroundView];//设置背景图
     [_inputView insertSubview:_backgroundView atIndex:0];
 
@@ -121,6 +156,8 @@ static CGFloat kMoreSettingBtnH = 50;
     _insertImgBtn.tag = 10001;
     [self.view addSubview:_insertImgBtn];
     
+    _insertTitleLabel = [self createTitleWithTitle:@"插入图片"];
+    
     _moreSettingBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     _moreSettingBtn.frame = CGRectMake(20, APPSIZE.height, kImgBtnW, kImgBtnW);
     _moreSettingBtn.centerX = self.view.centerX;
@@ -128,14 +165,26 @@ static CGFloat kMoreSettingBtnH = 50;
     [_moreSettingBtn setImage:insetImg2 forState:UIControlStateNormal];
     [self.view addSubview:_moreSettingBtn];
     
+    _moreTitleLabel = [self createTitleWithTitle:@"更多设置"];
+    
     _createImgBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     _createImgBtn.frame = CGRectMake(20, APPSIZE.height, kImgBtnW, kImgBtnW);
     [_createImgBtn setImage:insetImg3 forState:UIControlStateNormal];
     _createImgBtn.tag = 10003;
     [self.view addSubview:_createImgBtn];
     
+    _createTitleLabel = [self createTitleWithTitle:@"生成图片"];
+    
     _insertImgBtn.right = _moreSettingBtn.left - 40;
     _createImgBtn.left = _moreSettingBtn.right + 40;
+    
+    _insertTitleLabel.right = _insertImgBtn.right;
+    _insertTitleLabel.textAlignment = NSTextAlignmentRight;
+    
+    _moreTitleLabel.centerX = _moreSettingBtn.centerX;
+    
+    _createTitleLabel.left = _createImgBtn.left;
+    _createTitleLabel.textAlignment = NSTextAlignmentLeft;
     
     [_insertImgBtn addTarget:self action:@selector(imgButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     [_moreSettingBtn addTarget:self action:@selector(imgButtonAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -143,6 +192,13 @@ static CGFloat kMoreSettingBtnH = 50;
     
 //    [self logFont];
 }
+
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    
+}
+
+
 
 #pragma mark - 显示更多
 - (void)showMenuAction:(UIButton *)sender {
@@ -167,6 +223,10 @@ static CGFloat kMoreSettingBtnH = 50;
     [_moreSettingBtn.layer pop_addAnimation:basicAnimationY forKey:@"kPOPLayerPositionY"];
     [_createImgBtn.layer pop_addAnimation:basicAnimationY forKey:@"kPOPLayerPositionY"];
     
+    [_insertTitleLabel.layer pop_addAnimation:basicAnimationY forKey:@"kPOPLayerPositionY"];
+    [_moreTitleLabel.layer pop_addAnimation:basicAnimationY forKey:@"kPOPLayerPositionY"];
+    [_createTitleLabel.layer pop_addAnimation:basicAnimationY forKey:@"kPOPLayerPositionY"];
+    
     self.hiddenMoreBtn = YES;
 }
 
@@ -186,13 +246,21 @@ static CGFloat kMoreSettingBtnH = 50;
     [_insertImgBtn.layer pop_addAnimation:basicAnimationY forKey:@"kPOPLayerPositionY"];
     [_moreSettingBtn.layer pop_addAnimation:basicAnimationY forKey:@"kPOPLayerPositionY"];
     [_createImgBtn.layer pop_addAnimation:basicAnimationY forKey:@"kPOPLayerPositionY"];
+    
+    [_insertTitleLabel.layer pop_addAnimation:basicAnimationY forKey:@"kPOPLayerPositionY"];
+    [_moreTitleLabel.layer pop_addAnimation:basicAnimationY forKey:@"kPOPLayerPositionY"];
+    [_createTitleLabel.layer pop_addAnimation:basicAnimationY forKey:@"kPOPLayerPositionY"];
+    
+    _insertTitleLabel.top = _insertImgBtn.bottom + 10;
+    _moreTitleLabel.top = _insertImgBtn.bottom + 10;
+    _moreTitleLabel.top = _insertImgBtn.bottom + 10;
 }
 
 - (void)imgButtonAction:(UIButton *)sender {
     [self hiddenMoreBtnAction];
     switch (sender.tag) {
         case 10001:
-            [self insetImg];
+            [self insetImgIsInset:YES isTopCoverInsert:NO];
             break;
         case 10002:
             [self moreSetting];
@@ -203,9 +271,14 @@ static CGFloat kMoreSettingBtnH = 50;
     }
 }
 
+- (void)topCoverViewInsertImg {
+    [self insetImgIsInset:NO isTopCoverInsert:YES];
+}
+
 #pragma mark - 插入图片
-- (void)insetImg {
-    self.isInsert = YES;
+- (void)insetImgIsInset:(BOOL)isInset isTopCoverInsert:(BOOL)isTopCoverInsert {
+    self.isInsert = isInset;
+    self.isTopCoverInsert = isTopCoverInsert;
     NSArray *arrayTitle = @[@"拍照",@"从手机相册选择"];
     UIColor *color = [UIColor blackColor];
     WEAKSELF(self)
@@ -221,6 +294,8 @@ static CGFloat kMoreSettingBtnH = 50;
         }
     }];
 }
+
+
 
 #pragma mark - 更多设置
 - (void)moreSetting {
@@ -417,7 +492,6 @@ static CGFloat kMoreSettingBtnH = 50;
                 break;
         }
     }];
-    
 }
 
 //背景模糊
@@ -464,8 +538,9 @@ static CGFloat kMoreSettingBtnH = 50;
     
     if (self.isInsert) {
         [self insertImage:img];
-        
         self.inputView.font = self.userSettingFont;
+    } else if (self.isTopCoverInsert) {
+        self.topCoverImgView.coverImgView.image = img;
     } else {
         self.backImg = img;
         self.backgroundView.image = img;
@@ -480,6 +555,8 @@ static CGFloat kMoreSettingBtnH = 50;
     YYImage *image = (YYImage *)img;
     //添加文本+图片
     YYAnimatedImageView *imageView = [[YYAnimatedImageView alloc] initWithImage:image];
+    imageView.layer.cornerRadius = 8;
+    imageView.layer.masksToBounds = YES;
     imageView.frame = CGRectMake(0, 0, self.inputView.width - 20, self.inputView.width/image.size.width*image.size.height);
     NSMutableAttributedString *attachText = [NSMutableAttributedString attachmentStringWithContent:imageView contentMode:UIViewContentModeScaleAspectFit attachmentSize:imageView.size alignToFont:self.userSettingFont alignment:YYTextVerticalAlignmentCenter];
     
@@ -524,6 +601,18 @@ static CGFloat kMoreSettingBtnH = 50;
 }
 
 #pragma mark - 辅助方法
+
+- (UILabel *)createTitleWithTitle:(NSString *)title {
+    UILabel *label = [[UILabel alloc] init];
+    label.text = title;
+    label.textAlignment = NSTextAlignmentCenter;
+    label.font = [UIFont systemFontOfSize:14];
+    label.width = kTitleLabelW;
+    label.top = _insertImgBtn.bottom + 10;
+    label.height = 14;
+    [self.view addSubview:label];
+    return label;
+}
 //虚化
 - (UIImage *)applyGaussianBlur:(UIImage *)image {
     GPUImageGaussianBlurFilter *filter = [[GPUImageGaussianBlurFilter alloc] init];

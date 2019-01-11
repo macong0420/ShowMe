@@ -9,6 +9,15 @@
 /* Begin PBXBuildFile section */
 		C738162339E9D38A28E2184E /* libPods-ShowMe.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 696B6F354928D7CE8BB53D5C /* libPods-ShowMe.a */; };
 		CF5686A17A061621B221E7A1 /* libPods-ShowMeTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D35004ABE8EDC5FC4698188D /* libPods-ShowMeTests.a */; };
+		E21661FB21E87BB6007938BD /* UIImage+color.m in Sources */ = {isa = PBXBuildFile; fileRef = E21661EF21E87BB5007938BD /* UIImage+color.m */; };
+		E21661FC21E87BB6007938BD /* UIControl+Custom.m in Sources */ = {isa = PBXBuildFile; fileRef = E21661F121E87BB5007938BD /* UIControl+Custom.m */; };
+		E21661FD21E87BB6007938BD /* UIImage+rn_Blur.m in Sources */ = {isa = PBXBuildFile; fileRef = E21661F221E87BB5007938BD /* UIImage+rn_Blur.m */; };
+		E21661FE21E87BB6007938BD /* UIColor+more.m in Sources */ = {isa = PBXBuildFile; fileRef = E21661F621E87BB5007938BD /* UIColor+more.m */; };
+		E21661FF21E87BB6007938BD /* UILabel+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = E21661F821E87BB5007938BD /* UILabel+Common.m */; };
+		E216620021E87BB6007938BD /* UILabel+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = E21661FA21E87BB6007938BD /* UILabel+Extension.m */; };
+		E216620321E87F85007938BD /* MCHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E216620221E87F85007938BD /* MCHomeViewController.m */; };
+		E216621021E8839C007938BD /* MCDiraryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E216620F21E8839C007938BD /* MCDiraryCell.m */; };
+		E216621421E8A314007938BD /* MCEditTopCoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = E216621321E8A314007938BD /* MCEditTopCoverView.m */; };
 		E21C735D21DE0E89000803D4 /* ChangeFontView.m in Sources */ = {isa = PBXBuildFile; fileRef = E21C735C21DE0E89000803D4 /* ChangeFontView.m */; };
 		E21DB86C21D5C48D0001BC3E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E21DB86B21D5C48D0001BC3E /* AppDelegate.m */; };
 		E21DB86F21D5C48D0001BC3E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E21DB86E21D5C48D0001BC3E /* ViewController.m */; };
@@ -51,6 +60,26 @@
 		696B6F354928D7CE8BB53D5C /* libPods-ShowMe.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ShowMe.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A43013609FD995037A848884 /* Pods-ShowMe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShowMe.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ShowMe/Pods-ShowMe.debug.xcconfig"; sourceTree = "<group>"; };
 		D35004ABE8EDC5FC4698188D /* libPods-ShowMeTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ShowMeTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E21661EE21E87A79007938BD /* ShowMe.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShowMe.pch; sourceTree = "<group>"; };
+		E21661EF21E87BB5007938BD /* UIImage+color.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+color.m"; sourceTree = "<group>"; };
+		E21661F021E87BB5007938BD /* UIImage+color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+color.h"; sourceTree = "<group>"; };
+		E21661F121E87BB5007938BD /* UIControl+Custom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIControl+Custom.m"; sourceTree = "<group>"; };
+		E21661F221E87BB5007938BD /* UIImage+rn_Blur.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+rn_Blur.m"; sourceTree = "<group>"; };
+		E21661F321E87BB5007938BD /* UIImage+rn_Blur.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+rn_Blur.h"; sourceTree = "<group>"; };
+		E21661F421E87BB5007938BD /* UIControl+Custom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIControl+Custom.h"; sourceTree = "<group>"; };
+		E21661F521E87BB5007938BD /* UILabel+Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+Common.h"; sourceTree = "<group>"; };
+		E21661F621E87BB5007938BD /* UIColor+more.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+more.m"; sourceTree = "<group>"; };
+		E21661F721E87BB5007938BD /* UIColor+more.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+more.h"; sourceTree = "<group>"; };
+		E21661F821E87BB5007938BD /* UILabel+Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+Common.m"; sourceTree = "<group>"; };
+		E21661F921E87BB5007938BD /* UILabel+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+Extension.h"; sourceTree = "<group>"; };
+		E21661FA21E87BB6007938BD /* UILabel+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+Extension.m"; sourceTree = "<group>"; };
+		E216620121E87F85007938BD /* MCHomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCHomeViewController.h; sourceTree = "<group>"; };
+		E216620221E87F85007938BD /* MCHomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MCHomeViewController.m; sourceTree = "<group>"; };
+		E216620E21E8839C007938BD /* MCDiraryCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCDiraryCell.h; sourceTree = "<group>"; };
+		E216620F21E8839C007938BD /* MCDiraryCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MCDiraryCell.m; sourceTree = "<group>"; };
+		E216621121E88A2F007938BD /* MCShowMeCommonDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCShowMeCommonDefine.h; sourceTree = "<group>"; };
+		E216621221E8A314007938BD /* MCEditTopCoverView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCEditTopCoverView.h; sourceTree = "<group>"; };
+		E216621321E8A314007938BD /* MCEditTopCoverView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MCEditTopCoverView.m; sourceTree = "<group>"; };
 		E21C735B21DE0E89000803D4 /* ChangeFontView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChangeFontView.h; sourceTree = "<group>"; };
 		E21C735C21DE0E89000803D4 /* ChangeFontView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChangeFontView.m; sourceTree = "<group>"; };
 		E21DB86721D5C48D0001BC3E /* ShowMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShowMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -138,6 +167,104 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		E216620421E88069007938BD /* Home(主页模块) */ = {
+			isa = PBXGroup;
+			children = (
+				E216620621E88069007938BD /* Controller */,
+				E216620721E88069007938BD /* View */,
+				E216620521E88069007938BD /* Modles */,
+			);
+			path = "Home(主页模块)";
+			sourceTree = "<group>";
+		};
+		E216620521E88069007938BD /* Modles */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Modles;
+			sourceTree = "<group>";
+		};
+		E216620621E88069007938BD /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				E216620121E87F85007938BD /* MCHomeViewController.h */,
+				E216620221E87F85007938BD /* MCHomeViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		E216620721E88069007938BD /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E216620E21E8839C007938BD /* MCDiraryCell.h */,
+				E216620F21E8839C007938BD /* MCDiraryCell.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		E216620821E880C2007938BD /* Support(其他辅助模块) */ = {
+			isa = PBXGroup;
+			children = (
+				E21661EE21E87A79007938BD /* ShowMe.pch */,
+				E21DB87021D5C48D0001BC3E /* Main.storyboard */,
+				E21DB87521D5C48E0001BC3E /* LaunchScreen.storyboard */,
+				E21DB87921D5C48E0001BC3E /* main.m */,
+			);
+			name = "Support(其他辅助模块)";
+			path = "ShowMe/Support(其他辅助模块)";
+			sourceTree = SOURCE_ROOT;
+		};
+		E216620921E88103007938BD /* Font(第三方字体) */ = {
+			isa = PBXGroup;
+			children = (
+				E21DB8AC21D623E00001BC3E /* MoMoSuiXiangTiXi-2.ttf */,
+				E21DB8AA21D61EB50001BC3E /* KeKeTongHuaTi-2.ttf */,
+				E2730EC621DCAFDB00AD65A7 /* PangZhongHuaXingShu-2.ttf */,
+				E2730EC821DCB81C00AD65A7 /* MiNiJianShouJinShu-1.ttf */,
+				E21DB89C21D5C5150001BC3E /* H-GungSeo2.2.ttf */,
+			);
+			path = "Font(第三方字体)";
+			sourceTree = "<group>";
+		};
+		E216620A21E8817B007938BD /* Editting(创建笔记模块) */ = {
+			isa = PBXGroup;
+			children = (
+				E216620B21E8817B007938BD /* Controller */,
+				E216620C21E8817B007938BD /* Model */,
+				E216620D21E8817B007938BD /* View */,
+			);
+			path = "Editting(创建笔记模块)";
+			sourceTree = "<group>";
+		};
+		E216620B21E8817B007938BD /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				E21DB86D21D5C48D0001BC3E /* ViewController.h */,
+				E21DB86E21D5C48D0001BC3E /* ViewController.m */,
+				E21DB8A121D5D0240001BC3E /* ShowImageViewController.h */,
+				E21DB8A221D5D0240001BC3E /* ShowImageViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		E216620C21E8817B007938BD /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		E216620D21E8817B007938BD /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E21C735B21DE0E89000803D4 /* ChangeFontView.h */,
+				E21C735C21DE0E89000803D4 /* ChangeFontView.m */,
+				E216621221E8A314007938BD /* MCEditTopCoverView.h */,
+				E216621321E8A314007938BD /* MCEditTopCoverView.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		E21DB85E21D5C48D0001BC3E = {
 			isa = PBXGroup;
 			children = (
@@ -163,24 +290,15 @@
 		E21DB86921D5C48D0001BC3E /* ShowMe */ = {
 			isa = PBXGroup;
 			children = (
-				E2730EBE21DCAB9C00AD65A7 /* Tools */,
 				E21DB86A21D5C48D0001BC3E /* AppDelegate.h */,
 				E21DB86B21D5C48D0001BC3E /* AppDelegate.m */,
-				E21DB86D21D5C48D0001BC3E /* ViewController.h */,
-				E21DB86E21D5C48D0001BC3E /* ViewController.m */,
-				E21DB8A121D5D0240001BC3E /* ShowImageViewController.h */,
-				E21DB8A221D5D0240001BC3E /* ShowImageViewController.m */,
-				E21DB8A621D61D120001BC3E /* view */,
-				E21DB87021D5C48D0001BC3E /* Main.storyboard */,
-				E21DB87521D5C48E0001BC3E /* LaunchScreen.storyboard */,
-				E21DB87821D5C48E0001BC3E /* Info.plist */,
-				E21DB87921D5C48E0001BC3E /* main.m */,
-				E21DB8AC21D623E00001BC3E /* MoMoSuiXiangTiXi-2.ttf */,
-				E21DB8AA21D61EB50001BC3E /* KeKeTongHuaTi-2.ttf */,
-				E2730EC621DCAFDB00AD65A7 /* PangZhongHuaXingShu-2.ttf */,
-				E2730EC821DCB81C00AD65A7 /* MiNiJianShouJinShu-1.ttf */,
-				E21DB89C21D5C5150001BC3E /* H-GungSeo2.2.ttf */,
+				E216620421E88069007938BD /* Home(主页模块) */,
+				E216620A21E8817B007938BD /* Editting(创建笔记模块) */,
+				E216620821E880C2007938BD /* Support(其他辅助模块) */,
+				E216620921E88103007938BD /* Font(第三方字体) */,
+				E2730EBE21DCAB9C00AD65A7 /* Tools */,
 				E2730EC421DCAD9900AD65A7 /* Assets.xcassets */,
+				E21DB87821D5C48E0001BC3E /* Info.plist */,
 			);
 			path = ShowMe;
 			sourceTree = "<group>";
@@ -203,15 +321,6 @@
 			path = ShowMeUITests;
 			sourceTree = "<group>";
 		};
-		E21DB8A621D61D120001BC3E /* view */ = {
-			isa = PBXGroup;
-			children = (
-				E21C735B21DE0E89000803D4 /* ChangeFontView.h */,
-				E21C735C21DE0E89000803D4 /* ChangeFontView.m */,
-			);
-			path = view;
-			sourceTree = "<group>";
-		};
 		E2730EBE21DCAB9C00AD65A7 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
@@ -219,6 +328,19 @@
 				E2730EC021DCAB9C00AD65A7 /* UIView+LLXAlertPop.m */,
 				E2730ECA21DCC83D00AD65A7 /* UIBarButtonItem+Common.h */,
 				E2730ECB21DCC83D00AD65A7 /* UIBarButtonItem+Common.m */,
+				E21661F721E87BB5007938BD /* UIColor+more.h */,
+				E21661F621E87BB5007938BD /* UIColor+more.m */,
+				E21661F421E87BB5007938BD /* UIControl+Custom.h */,
+				E21661F121E87BB5007938BD /* UIControl+Custom.m */,
+				E21661F021E87BB5007938BD /* UIImage+color.h */,
+				E21661EF21E87BB5007938BD /* UIImage+color.m */,
+				E21661F321E87BB5007938BD /* UIImage+rn_Blur.h */,
+				E21661F221E87BB5007938BD /* UIImage+rn_Blur.m */,
+				E21661F521E87BB5007938BD /* UILabel+Common.h */,
+				E21661F821E87BB5007938BD /* UILabel+Common.m */,
+				E21661F921E87BB5007938BD /* UILabel+Extension.h */,
+				E21661FA21E87BB6007938BD /* UILabel+Extension.m */,
+				E216621121E88A2F007938BD /* MCShowMeCommonDefine.h */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -498,12 +620,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E21661FD21E87BB6007938BD /* UIImage+rn_Blur.m in Sources */,
+				E216621021E8839C007938BD /* MCDiraryCell.m in Sources */,
+				E216621421E8A314007938BD /* MCEditTopCoverView.m in Sources */,
 				E21DB86F21D5C48D0001BC3E /* ViewController.m in Sources */,
 				E21DB87A21D5C48E0001BC3E /* main.m in Sources */,
 				E21C735D21DE0E89000803D4 /* ChangeFontView.m in Sources */,
 				E21DB86C21D5C48D0001BC3E /* AppDelegate.m in Sources */,
 				E2730ECC21DCC83D00AD65A7 /* UIBarButtonItem+Common.m in Sources */,
+				E21661FB21E87BB6007938BD /* UIImage+color.m in Sources */,
+				E216620321E87F85007938BD /* MCHomeViewController.m in Sources */,
 				E2730EC121DCAB9C00AD65A7 /* UIView+LLXAlertPop.m in Sources */,
+				E216620021E87BB6007938BD /* UILabel+Extension.m in Sources */,
+				E21661FE21E87BB6007938BD /* UIColor+more.m in Sources */,
+				E21661FF21E87BB6007938BD /* UILabel+Common.m in Sources */,
+				E21661FC21E87BB6007938BD /* UIControl+Custom.m in Sources */,
 				E21DB8A321D5D0240001BC3E /* ShowImageViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -600,6 +731,8 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "/Users/macongcong/Desktop/ShowMe/ShowMe/Support(其他辅助模块)/ShowMe.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -610,6 +743,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -657,12 +791,15 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "/Users/macongcong/Desktop/ShowMe/ShowMe/Support(其他辅助模块)/ShowMe.pch";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
