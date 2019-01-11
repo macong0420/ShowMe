@@ -84,9 +84,15 @@ static CGFloat kTitleLabelW = 100;
 - (void)setupUI {
     
     //基础设置
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
-    //去掉导航栏底部的黑线
-    self.navigationController.navigationBar.shadowImage = [UIImage new];
+//    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+//    //去掉导航栏底部的黑线
+//    self.navigationController.navigationBar.shadowImage = [UIImage new];
+    
+    UIButton *rightButton = [[UIButton alloc] initWithFrame:CGRectMake(0,0,30,30)];
+    [rightButton setImage:[UIImage imageNamed:@"right"] forState:UIControlStateNormal];
+    [rightButton addTarget:self action:@selector(saveDiaryAction:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:rightButton];
+    self.navigationItem.rightBarButtonItem = rightItem;
     
     _topCoverImgView = [[MCEditTopCoverView alloc] initWithFrame:CGRectMake(0, ZHNAVALL_H, ZHSCREEN_Width, ZHSCREEN_Width*0.8)];
     _topCoverImgView.delegate = self;
@@ -198,7 +204,9 @@ static CGFloat kTitleLabelW = 100;
     
 }
 
-
+- (void)saveDiaryAction:(UIButton *)sender {
+    
+}
 
 #pragma mark - 显示更多
 - (void)showMenuAction:(UIButton *)sender {

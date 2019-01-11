@@ -70,7 +70,8 @@ static NSString *const kMCDiraryCell = @"kMCDiraryCell";
 
 - (void)addBtnAction:(UIButton *)sender {
     ViewController *vc = [[ViewController alloc] init];
-    [self.navigationController pushViewController:vc animated:YES];
+//    [self.navigationController pushViewController:vc animated:YES];
+    [self.navigationController presentViewController:vc animated:YES completion:nil];
 }
 
 #pragma mark - tableView代理
