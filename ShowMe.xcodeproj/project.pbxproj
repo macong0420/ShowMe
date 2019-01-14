@@ -31,6 +31,10 @@
 		E21DB8A521D5FB060001BC3E /* libYYKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E21DB8A421D5FB060001BC3E /* libYYKit.a */; };
 		E21DB8AB21D61EDE0001BC3E /* KeKeTongHuaTi-2.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E21DB8AA21D61EB50001BC3E /* KeKeTongHuaTi-2.ttf */; };
 		E21DB8AD21D623F70001BC3E /* MoMoSuiXiangTiXi-2.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E21DB8AC21D623E00001BC3E /* MoMoSuiXiangTiXi-2.ttf */; };
+		E23920BF21EC726F0019DA60 /* EditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E23920BE21EC726F0019DA60 /* EditViewController.m */; };
+		E23920C521EC80E00019DA60 /* EditTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E23920C421EC80E00019DA60 /* EditTableViewCell.m */; };
+		E23920C821EC875F0019DA60 /* EditInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = E23920C721EC875F0019DA60 /* EditInputView.m */; };
+		E23920CB21EC9ECA0019DA60 /* EditBaseScrollview.m in Sources */ = {isa = PBXBuildFile; fileRef = E23920CA21EC9ECA0019DA60 /* EditBaseScrollview.m */; };
 		E2730EC121DCAB9C00AD65A7 /* UIView+LLXAlertPop.m in Sources */ = {isa = PBXBuildFile; fileRef = E2730EC021DCAB9C00AD65A7 /* UIView+LLXAlertPop.m */; };
 		E2730EC521DCAD9A00AD65A7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E2730EC421DCAD9900AD65A7 /* Assets.xcassets */; };
 		E2730EC721DCAFF200AD65A7 /* PangZhongHuaXingShu-2.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E2730EC621DCAFDB00AD65A7 /* PangZhongHuaXingShu-2.ttf */; };
@@ -104,6 +108,14 @@
 		E21DB8A421D5FB060001BC3E /* libYYKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libYYKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		E21DB8AA21D61EB50001BC3E /* KeKeTongHuaTi-2.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "KeKeTongHuaTi-2.ttf"; sourceTree = "<group>"; };
 		E21DB8AC21D623E00001BC3E /* MoMoSuiXiangTiXi-2.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MoMoSuiXiangTiXi-2.ttf"; sourceTree = "<group>"; };
+		E23920BD21EC726F0019DA60 /* EditViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditViewController.h; sourceTree = "<group>"; };
+		E23920BE21EC726F0019DA60 /* EditViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditViewController.m; sourceTree = "<group>"; };
+		E23920C321EC80E00019DA60 /* EditTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditTableViewCell.h; sourceTree = "<group>"; };
+		E23920C421EC80E00019DA60 /* EditTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditTableViewCell.m; sourceTree = "<group>"; };
+		E23920C621EC875F0019DA60 /* EditInputView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditInputView.h; sourceTree = "<group>"; };
+		E23920C721EC875F0019DA60 /* EditInputView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditInputView.m; sourceTree = "<group>"; };
+		E23920C921EC9ECA0019DA60 /* EditBaseScrollview.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditBaseScrollview.h; sourceTree = "<group>"; };
+		E23920CA21EC9ECA0019DA60 /* EditBaseScrollview.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditBaseScrollview.m; sourceTree = "<group>"; };
 		E2730EBF21DCAB9C00AD65A7 /* UIView+LLXAlertPop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+LLXAlertPop.h"; sourceTree = "<group>"; };
 		E2730EC021DCAB9C00AD65A7 /* UIView+LLXAlertPop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+LLXAlertPop.m"; sourceTree = "<group>"; };
 		E2730EC421DCAD9900AD65A7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -239,6 +251,8 @@
 		E216620B21E8817B007938BD /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				E23920BD21EC726F0019DA60 /* EditViewController.h */,
+				E23920BE21EC726F0019DA60 /* EditViewController.m */,
 				E21DB86D21D5C48D0001BC3E /* ViewController.h */,
 				E21DB86E21D5C48D0001BC3E /* ViewController.m */,
 				E21DB8A121D5D0240001BC3E /* ShowImageViewController.h */,
@@ -261,6 +275,12 @@
 				E21C735C21DE0E89000803D4 /* ChangeFontView.m */,
 				E216621221E8A314007938BD /* MCEditTopCoverView.h */,
 				E216621321E8A314007938BD /* MCEditTopCoverView.m */,
+				E23920C921EC9ECA0019DA60 /* EditBaseScrollview.h */,
+				E23920CA21EC9ECA0019DA60 /* EditBaseScrollview.m */,
+				E23920C621EC875F0019DA60 /* EditInputView.h */,
+				E23920C721EC875F0019DA60 /* EditInputView.m */,
+				E23920C321EC80E00019DA60 /* EditTableViewCell.h */,
+				E23920C421EC80E00019DA60 /* EditTableViewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -626,16 +646,20 @@
 				E21DB86F21D5C48D0001BC3E /* ViewController.m in Sources */,
 				E21DB87A21D5C48E0001BC3E /* main.m in Sources */,
 				E21C735D21DE0E89000803D4 /* ChangeFontView.m in Sources */,
+				E23920CB21EC9ECA0019DA60 /* EditBaseScrollview.m in Sources */,
 				E21DB86C21D5C48D0001BC3E /* AppDelegate.m in Sources */,
 				E2730ECC21DCC83D00AD65A7 /* UIBarButtonItem+Common.m in Sources */,
 				E21661FB21E87BB6007938BD /* UIImage+color.m in Sources */,
+				E23920C821EC875F0019DA60 /* EditInputView.m in Sources */,
 				E216620321E87F85007938BD /* MCHomeViewController.m in Sources */,
 				E2730EC121DCAB9C00AD65A7 /* UIView+LLXAlertPop.m in Sources */,
+				E23920BF21EC726F0019DA60 /* EditViewController.m in Sources */,
 				E216620021E87BB6007938BD /* UILabel+Extension.m in Sources */,
 				E21661FE21E87BB6007938BD /* UIColor+more.m in Sources */,
 				E21661FF21E87BB6007938BD /* UILabel+Common.m in Sources */,
 				E21661FC21E87BB6007938BD /* UIControl+Custom.m in Sources */,
 				E21DB8A321D5D0240001BC3E /* ShowImageViewController.m in Sources */,
+				E23920C521EC80E00019DA60 /* EditTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

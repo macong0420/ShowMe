@@ -42,6 +42,8 @@
     [_coverImgView addSubview:_coverAddImgBtn];
 }
 
+
+
 - (void)coverAddImgBtnAction:(UIButton *)sender {
     if (_delegate && [_delegate respondsToSelector:@selector(topCoverViewInsertImg)]) {
         [_delegate topCoverViewInsertImg];

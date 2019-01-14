@@ -36,7 +36,6 @@ static CGFloat kTitleLabelW = 100;
                              >
 
 
-@property (nonatomic, strong) UITextField *inputField;
 @property (nonatomic, strong) YYTextView *inputView;
 @property (nonatomic, strong) UIButton *saveBtn;
 @property (nonatomic, strong) UIButton *moreBtn;
@@ -302,7 +301,6 @@ static CGFloat kTitleLabelW = 100;
         }
     }];
 }
-
 
 
 #pragma mark - 更多设置
