@@ -9,8 +9,13 @@
 #import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
+@class MCHomeViewController,EditModle;
 
 @interface EditViewController : UIViewController
+
+@property (nonatomic, strong) MCHomeViewController *homeVC;
+
+- (instancetype)initWithEditModel:(EditModle *)modle;
 
 @end
 

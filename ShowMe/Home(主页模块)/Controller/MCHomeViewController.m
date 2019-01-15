@@ -11,6 +11,7 @@
 #import <LYEmptyView/LYEmptyViewHeader.h>
 #import "ViewController.h"
 #import "EditViewController.h"
+#import "EditModle.h"
 
 static NSString *const kMCDiraryCell = @"kMCDiraryCell";
 
@@ -69,8 +70,22 @@ static NSString *const kMCDiraryCell = @"kMCDiraryCell";
     
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    if (_diaryArray.count) {
+        [self.tableview.ly_emptyView removeFromSuperview];
+    }
+}
+
+- (void)setModel:(EditModle *)model {
+    _model = model;
+    [_diaryArray addObject:model];
+    [self.tableview reloadData];
+    
+}
+
 - (void)addBtnAction:(UIButton *)sender {
     EditViewController *vc = [[EditViewController alloc] init];
+    vc.homeVC = self;
     [self.navigationController pushViewController:vc animated:YES];
 //    [self.navigationController presentViewController:vc animated:YES completion:nil];
 }
@@ -86,7 +101,15 @@ static NSString *const kMCDiraryCell = @"kMCDiraryCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     MCDiraryCell *cell = [tableView dequeueReusableCellWithIdentifier:kMCDiraryCell];
+    cell.model = self.model;
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    EditModle *modle = self.diaryArray[indexPath.row];
+    EditViewController *vc = [[EditViewController alloc] initWithEditModel:modle];
+    [self.navigationController pushViewController:vc animated:YES];
+    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {

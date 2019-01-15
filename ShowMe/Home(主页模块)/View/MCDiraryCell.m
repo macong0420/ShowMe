@@ -7,6 +7,8 @@
 //
 
 #import "MCDiraryCell.h"
+#import "EditModle.h"
+
 
 static CGFloat kBackViewHeight = 200;
 static CGFloat kBcakViewWidth = 750/2.0;
@@ -47,6 +49,14 @@ static CGFloat kMargin = 0.15;
     _coverImageView.frame = CGRectMake(kBackViewSmallW, 0, kBcakViewWidth-kBackViewSmallW, kBackViewHeight);
     _coverImageView.backgroundColor = [UIColor randomColor];
     [_backContenView addSubview:_coverImageView];
+    
+}
+
+
+- (void)setModel:(EditModle *)model {
+    _model = model;
+    _coverImageView.image = model.coverImg;
+    
     
 }
 

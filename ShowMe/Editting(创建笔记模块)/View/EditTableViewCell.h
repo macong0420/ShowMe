@@ -9,8 +9,11 @@
 #import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
+@class EditModle;
 
 @interface EditTableViewCell : UITableViewCell
+
+@property (nonatomic, strong) EditModle *model;
 
 @end
 

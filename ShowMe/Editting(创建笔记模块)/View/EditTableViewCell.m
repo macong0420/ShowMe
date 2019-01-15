@@ -7,12 +7,18 @@
 //
 
 #import "EditTableViewCell.h"
+#import "EditModle.h"
 
 @implementation EditTableViewCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+}
+
+- (void)setModel:(EditModle *)model {
+    _model = model;
+    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
